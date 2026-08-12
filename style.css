@@ -137,32 +137,45 @@ a {
     display: flex;
     align-items: center;
     gap: 12px;
+    text-decoration: none;
+    flex-shrink: 0; /* Mencegah logo tergepengkan saat layar menyempit */
 }
 
-.logo-icon {
-    width: 44px;
-    height: 44px;
-    background-color: var(--primary);
-    color: var(--white);
-    font-weight: 800;
-    font-size: 1.5rem;
+/* Pengaturan Gambar Logo */
+.logo-img {
+    height: 52px;              /* Tinggi ideal untuk tampilan Desktop */
+    width: auto;               /* Rasio lebar otomatis mengikuti tinggi */
+    max-width: 100%;
+    object-fit: contain;       /* Menjaga proporsi gambar tidak buram/terdistorsi */
+    transition: transform 0.3s ease;
+}
+
+.brand-logo:hover .logo-img {
+    transform: scale(1.04);     /* Efek hover halus */
+}
+
+.brand-text {
     display: flex;
-    align-items: center;
+    flex-direction: column;
     justify-content: center;
-    border-radius: var(--radius-sm);
 }
 
 .brand-text h1 {
-    font-size: 1.1rem;
+    font-size: 1.15rem;
     font-weight: 800;
     line-height: 1.1;
     color: var(--dark);
+    margin: 0;
+    white-space: nowrap;       /* Mencegah baris teks terpotong aneh */
 }
 
 .brand-text p {
-    font-size: 0.75rem;
-    color: var(--gray-600);
+    font-size: 0.72rem;
+    color: var(--primary);
+    font-weight: 700;
     letter-spacing: 1px;
+    margin: 0;
+    white-space: nowrap;
 }
 
 .nav-menu ul {
