@@ -136,37 +136,65 @@
             </div>
 
             <div class="quick-grid">
+<<<<<<< HEAD
                 <a href="#ppdb" target="_blank" class="quick-card">
+=======
+                <a href="#ppdb" class="quick-card">
+>>>>>>> 71f77ffcccc6cdccd94d9ee7913bb802b84ab952
                     <div class="quick-icon"><i data-lucide="user-plus"></i></div>
                     <h4>PPDB / SPMB</h4>
                     <span class="quick-badge">Pendaftaran</span>
                 </a>
+<<<<<<< HEAD
                 <a href="http://id2.tunnel.my.id:4015/" target="_blank" class="quick-card">
+=======
+                <a href="#erapor" class="quick-card">
+>>>>>>> 71f77ffcccc6cdccd94d9ee7913bb802b84ab952
                     <div class="quick-icon"><i data-lucide="file-text"></i></div>
                     <h4>E-Rapor</h4>
                     <span class="quick-badge">Siswa</span>
                 </a>
+<<<<<<< HEAD
                 <a href="https://perpus.sma8bna.sch.id/" target="_blank" class="quick-card">
+=======
+                <a href="#perpus" class="quick-card">
+>>>>>>> 71f77ffcccc6cdccd94d9ee7913bb802b84ab952
                     <div class="quick-icon"><i data-lucide="book-open"></i></div>
                     <h4>Perpustakaan Digital</h4>
                     <span class="quick-badge">E-Library</span>
                 </a>
+<<<<<<< HEAD
                 <a href="#elearning" target="_blank" class="quick-card">
+=======
+                <a href="#elearning" class="quick-card">
+>>>>>>> 71f77ffcccc6cdccd94d9ee7913bb802b84ab952
                     <div class="quick-icon"><i data-lucide="monitor"></i></div>
                     <h4>E-Learning</h4>
                     <span class="quick-badge">LMS</span>
                 </a>
+<<<<<<< HEAD
                 <a href="#kalender" target="_blank" class="quick-card">
+=======
+                <a href="#kalender" class="quick-card">
+>>>>>>> 71f77ffcccc6cdccd94d9ee7913bb802b84ab952
                     <div class="quick-icon"><i data-lucide="calendar"></i></div>
                     <h4>Kalender Akademik</h4>
                     <span class="quick-badge">Agenda</span>
                 </a>
+<<<<<<< HEAD
                 <a href="https://cetakabsen.sma8bna.sch.id/index.php?page=login" target="_blank" class="quick-card">
+=======
+                <a href="#agenda" class="quick-card">
+>>>>>>> 71f77ffcccc6cdccd94d9ee7913bb802b84ab952
                     <div class="quick-icon"><i data-lucide="clock"></i></div>
                     <h4>Agenda Sekolah</h4>
                     <span class="quick-badge">Kegiatan</span>
                 </a>
+<<<<<<< HEAD
                 <a href="#pengumuman" target="_blank" class="quick-card">
+=======
+                <a href="#pengumuman" class="quick-card">
+>>>>>>> 71f77ffcccc6cdccd94d9ee7913bb802b84ab952
                     <div class="quick-icon"><i data-lucide="bell"></i></div>
                     <h4>Pengumuman</h4>
                     <span class="quick-badge">Informasi</span>
