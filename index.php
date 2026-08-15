@@ -70,7 +70,7 @@
                 <div class="stat-card">
                     <div class="stat-icon"><i data-lucide="user-check"></i></div>
                     <div class="stat-info">
-                        <span class="stat-number" data-target="52">0</span>
+                        <span class="stat-number" data-target="78">0</span>
                         <span class="stat-label">Guru & Tendik</span>
                     </div>
                 </div>
@@ -97,7 +97,7 @@
         <div class="container">
             <div class="profile-grid">
                 <div class="principal-card">
-                    <img src="assets/img/kepsek.jpg" alt="Kepala Sekolah" class="principal-img">
+                    <img src="assets/img/kepsek.jpeg" alt="Kepala Sekolah" class="principal-img">
                     <div class="principal-details">
                         <h3>Dr. Erlawana, S.Pd., M.Pd</h3>
                         <p>Kepala SMA Negeri 8 Banda Aceh</p>
@@ -105,7 +105,7 @@
                 </div>
 
                 <div class="profile-content">
-                    <span class="section-tag">Profil Sekolah</span>
+                    <span class="section-tag">Sambutan Kepala Sekolah</span>
                     <h2 class="section-title">Membentuk Generasi Cerdas, Unggul & Berkarakter</h2>
                     <p class="profile-description">
                         Selamat datang di portal resmi SMA Negeri 8 Banda Aceh. Kami berkomitmen menyelenggarakan pendidikan berkualitas tinggi yang memadukan keunggulan akademik, pengembangan potensi minat bakat, serta penguatan karakter berpijak pada nilai kebangsaan.

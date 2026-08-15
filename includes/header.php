@@ -24,9 +24,9 @@
     <div class="topbar">
         <div class="container">
             <div class="topbar-contact">
-                <span><i data-lucide="phone"></i> (0651) XXXXX</span>
-                <span><i data-lucide="mail"></i> info@sma8bna.sch.id</span>
-                <span><i data-lucide="map-pin"></i> Banda Aceh, Aceh</span>
+                <span><i data-lucide="phone"></i> (+62) 878-8389-1042</span>
+                <span><i data-lucide="mail"></i> sman8bandaaceh01.@gmail.com</span>
+                <!-- <span><i data-lucide="map-pin"></i> Banda Aceh, Aceh</span> -->
             </div>
             <div class="topbar-actions">
                 <a href="index.php#ppdb" class="btn-ppdb">PPDB / SPMB ONLINE</a>
