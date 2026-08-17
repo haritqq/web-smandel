@@ -1,0 +1,659 @@
+/* ==========================================================================
+   RESET & VARIABLES
+   ========================================================================== */
+/* ==========================================================================
+   COLOR PALETTE - SMAN 8 BANDA ACEH (ELEGANT ORANGE THEME)
+   ========================================================================== */
+:root {
+    /* Primary Color: Oranye Khas SMAN 8 (Modern & Deep) */
+    --primary: #E65100;           /* Vibrant Amber Orange */
+    --primary-hover: #BF360C;     /* Deep Rust Orange (Hover Effect) */
+    
+    /* Secondary Color: Dark Slate Navy (Memberi kesan elegan & kontras profesional) */
+    --secondary: #1E293B;         /* Slate Navy Dark */
+    --secondary-hover: #0F172A;   /* Deep Slate */
+    
+    /* Accent Color: Soft Warm Amber & Gold */
+    --accent: #F59E0B;            /* Bright Warm Gold/Amber */
+    --accent-light: #FFF7ED;      /* Soft Warm Cream Light Background */
+    --accent-subtle: #FFEDD5;     /* Warm Cream Badge Background */
+
+    /* Neutral Colors */
+    --dark: #0F172A;              /* Charcoal Dark Text */
+    --gray-600: #475569;          /* Slate Gray Secondary Text */
+    --gray-100: #F8FAFC;          /* Clean Light Gray */
+    --white: #FFFFFF;
+    
+    /* UI Effects */
+    --glass-bg: rgba(255, 255, 255, 0.88);
+    --glass-border: rgba(255, 255, 255, 0.25);
+    --shadow-sm: 0 4px 6px -1px rgba(230, 81, 0, 0.05);
+    --shadow-md: 0 10px 20px -3px rgba(15, 23, 42, 0.08);
+    --shadow-lg: 0 20px 25px -5px rgba(230, 81, 0, 0.12);
+    --radius-sm: 8px;
+    --radius-md: 16px;
+    --radius-lg: 24px;
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    color: var(--dark);
+    background-color: #FAFCFF;
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+    transition: var(--transition);
+}
+
+/* ==========================================================================
+   1. TOPBAR
+   ========================================================================== */
+.topbar {
+    background-color: var(--dark);
+    color: var(--white);
+    font-size: 0.85rem;
+    padding: 10px 0;
+}
+
+.topbar .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.topbar-contact span {
+    margin-right: 20px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.topbar-contact i {
+    width: 16px;
+    height: 16px;
+}
+
+.topbar-actions {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+}
+
+.btn-ppdb {
+    background: linear-gradient(135deg, #FF6B00, #E65100);
+    color: var(--white);
+    padding: 6px 16px;
+    border-radius: var(--radius-sm);
+    font-weight: 700;
+    font-size: 0.8rem;
+    box-shadow: 0 2px 10px rgba(230, 81, 0, 0.3);
+}
+
+.btn-link {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.btn-link:hover {
+    color: var(--white);
+}
+
+/* ==========================================================================
+   2. STICKY HEADER & MEGA MENU
+   ========================================================================== */
+.main-header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    transition: var(--transition);
+}
+
+.main-header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 80px;
+}
+
+.brand-logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+    flex-shrink: 0; /* Mencegah logo tergepengkan saat layar menyempit */
+}
+
+/* Pengaturan Gambar Logo */
+.logo-img {
+    height: 52px;              /* Tinggi ideal untuk tampilan Desktop */
+    width: auto;               /* Rasio lebar otomatis mengikuti tinggi */
+    max-width: 100%;
+    object-fit: contain;       /* Menjaga proporsi gambar tidak buram/terdistorsi */
+    transition: transform 0.3s ease;
+}
+
+.brand-logo:hover .logo-img {
+    transform: scale(1.04);     /* Efek hover halus */
+}
+
+.brand-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.brand-text h1 {
+    font-size: 1.15rem;
+    font-weight: 800;
+    line-height: 1.1;
+    color: var(--dark);
+    margin: 0;
+    white-space: nowrap;       /* Mencegah baris teks terpotong aneh */
+}
+
+.brand-text p {
+    font-size: 0.72rem;
+    color: var(--primary);
+    font-weight: 700;
+    letter-spacing: 1px;
+    margin: 0;
+    white-space: nowrap;
+}
+
+.nav-menu ul {
+    display: flex;
+    list-style: none;
+    gap: 28px;
+}
+
+.nav-item {
+    position: relative;
+}
+
+.nav-item a {
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--dark);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 10px 0;
+}
+
+.nav-item:hover > a, .nav-item.active > a {
+    color: var(--primary);
+}
+
+/* Mega Menu */
+.mega-menu {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%) translateY(15px);
+    width: 500px;
+    background: var(--white);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-lg);
+    padding: 20px;
+    opacity: 0;
+    visibility: hidden;
+    transition: var(--transition);
+}
+
+.nav-item.has-dropdown:hover .mega-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+}
+
+.mega-menu-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+}
+
+.mega-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 12px;
+    border-radius: var(--radius-sm);
+}
+
+.mega-item:hover {
+    background-color: var(--accent-light);
+}
+
+.mega-item i {
+    color: var(--primary);
+    margin-top: 2px;
+}
+
+.mega-item h4 {
+    font-size: 0.9rem;
+    color: var(--dark);
+}
+
+.mega-item p {
+    font-size: 0.75rem;
+    color: var(--gray-600);
+}
+
+.mobile-toggle {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+
+
+.btn {
+    padding: 12px 28px;
+    border-radius: var(--radius-sm);
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-primary {
+    background-color: var(--primary);
+    color: var(--white);
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-hover);
+    transform: translateY(-2px);
+}
+
+.btn-secondary {
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(8px);
+    color: var(--white);
+    border: 1px solid var(--glass-border);
+}
+
+.btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+
+
+
+
+.section-tag {
+    color: var(--primary);
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+}
+
+.section-title {
+    font-size: 2.2rem;
+    font-weight: 800;
+    margin: 8px 0 16px 0;
+    line-height: 1.2;
+}
+
+
+
+
+
+/* ==========================================================================
+   7. FOOTER
+   ========================================================================== */
+.main-footer {
+    background-color: var(--dark);
+    color: var(--white);
+    padding: 80px 0 30px 0;
+}
+
+.footer-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 40px;
+    margin-bottom: 50px;
+}
+
+.footer-brand h3 {
+    font-size: 1.3rem;
+    margin-bottom: 12px;
+}
+
+.footer-brand p {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.9rem;
+    margin-bottom: 12px;
+}
+
+.footer-col h4 {
+    font-size: 1rem;
+    margin-bottom: 20px;
+    color: var(--white);
+}
+
+.footer-col ul {
+    list-style: none;
+}
+
+.footer-col ul li {
+    margin-bottom: 10px;
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.footer-col ul li a:hover {
+    color: var(--white);
+}
+
+.footer-bottom {
+    text-align: center;
+    padding-top: 30px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.4);
+}
+
+/* ==========================================================================
+   RESPONSIVE DESIGN (MOBILE & TABLET)
+   ========================================================================== */
+@media (max-width: 1024px) {
+    .footer-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 768px) {
+    .mobile-toggle { display: block; }
+    
+    .nav-menu {
+        position: fixed;
+        top: 80px;
+        left: -100%;
+        width: 100%;
+        height: calc(100vh - 80px);
+        background: var(--white);
+        padding: 30px;
+        transition: var(--transition);
+        overflow-y: auto;
+    }
+
+    .nav-menu.active { left: 0; }
+    .nav-menu ul { flex-direction: column; gap: 16px; }
+    
+    .topbar-contact span:not(:first-child) { display: none; }
+}
+
+@media (max-width: 480px) {
+    .footer-grid { grid-template-columns: 1fr; }
+}
+
+
+
+.btn-outline {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    border: 2px solid var(--primary);
+    color: var(--primary);
+    border-radius: var(--radius-sm);
+    font-weight: 700;
+    font-size: 0.9rem;
+    transition: var(--transition);
+}
+
+.btn-outline:hover {
+    background-color: var(--primary);
+    color: var(--white);
+}
+
+
+
+/* ==========================================================================
+   PAGE BANNER & BREADCRUMB
+   ========================================================================== */
+.page-banner {
+    background: linear-gradient(135deg, var(--secondary) 0%, var(--secondary-hover) 100%);
+    position: relative;
+    padding: 60px 0;
+    color: var(--white);
+    overflow: hidden;
+    border-bottom: 3px solid var(--primary);
+}
+
+.page-banner::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, rgba(230, 81, 0, 0.15) 0%, transparent 70%);
+    border-radius: 50%;
+}
+
+.page-banner .breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.88rem;
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 12px;
+}
+
+.page-banner .breadcrumb a {
+    color: rgba(255, 255, 255, 0.7);
+    transition: var(--transition);
+}
+
+.page-banner .breadcrumb a:hover {
+    color: var(--primary);
+}
+
+.page-banner .breadcrumb span {
+    color: var(--white);
+    font-weight: 500;
+}
+
+.page-banner .page-title {
+    font-size: 2.5rem;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+}
+
+/* ==========================================================================
+   VISI & MISI SECTION
+   ========================================================================== */
+.visi-misi-section {
+    padding: 80px 0;
+    background-color: #FAFCFF;
+}
+
+.vision-card {
+    background: var(--white);
+    border-radius: var(--radius-lg);
+    padding: 50px 40px;
+    box-shadow: var(--shadow-lg);
+    border: 1px solid rgba(230, 81, 0, 0.08);
+    position: relative;
+    max-width: 900px;
+    margin: 0 auto 80px auto;
+    text-align: center;
+    overflow: hidden;
+    transition: var(--transition);
+}
+
+.vision-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 6px;
+    background: linear-gradient(90deg, var(--primary), var(--accent));
+}
+
+.vision-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 30px 50px -10px rgba(230, 81, 0, 0.15);
+}
+
+.vision-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--accent-subtle);
+    color: var(--primary-hover);
+    padding: 8px 20px;
+    border-radius: 50px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 24px;
+}
+
+.vision-badge i {
+    width: 18px;
+    height: 18px;
+}
+
+.vision-text {
+    font-size: 1.6rem;
+    font-weight: 700;
+    line-height: 1.5;
+    color: var(--secondary);
+    font-style: italic;
+}
+
+/* MISSION SECTION */
+.section-heading {
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto 50px auto;
+}
+
+.misi-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+}
+
+.misi-card {
+    background: var(--white);
+    border-radius: var(--radius-md);
+    padding: 30px;
+    border: 1px solid rgba(0, 0, 0, 0.04);
+    box-shadow: var(--shadow-sm);
+    display: flex;
+    gap: 24px;
+    align-items: flex-start;
+    transition: var(--transition);
+    position: relative;
+}
+
+.misi-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-md);
+    border-color: rgba(230, 81, 0, 0.15);
+}
+
+.misi-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 3px;
+    background: var(--primary);
+    transition: var(--transition);
+    border-bottom-left-radius: var(--radius-md);
+    border-bottom-right-radius: var(--radius-md);
+}
+
+.misi-card:hover::after {
+    width: 100%;
+}
+
+.misi-number {
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: var(--primary);
+    background: var(--accent-light);
+    width: 64px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    flex-shrink: 0;
+    border: 2px solid var(--accent-subtle);
+    transition: var(--transition);
+}
+
+.misi-card:hover .misi-number {
+    background: var(--primary);
+    color: var(--white);
+    border-color: var(--primary);
+}
+
+.misi-content {
+    flex-grow: 1;
+}
+
+.misi-content h4 {
+    display: none;
+}
+
+.misi-content p {
+    font-size: 1.05rem;
+    color: var(--gray-600);
+    line-height: 1.6;
+}
+
+/* RESPONSIVE FOR VISI MISI */
+@media (max-width: 992px) {
+    .misi-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .page-banner {
+        padding: 40px 0;
+    }
+    .page-banner .page-title {
+        font-size: 2rem;
+    }
+    .vision-card {
+        padding: 40px 24px;
+    }
+    .vision-text {
+        font-size: 1.3rem;
+    }
+    .misi-card {
+        flex-direction: column;
+        gap: 16px;
+        align-items: center;
+        text-align: center;
+    }
+}

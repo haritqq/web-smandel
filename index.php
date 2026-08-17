@@ -1,6 +1,8 @@
 <?php 
     $page_title = "Beranda";
     $current_page = "home"; 
+    $page_css = "assets/css/home.css";
+    $page_js = "assets/js/home.js";
 
     // Load visitor counter
     include 'includes/visitor_counter.php';
