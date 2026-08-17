@@ -41,9 +41,6 @@
 
     <!-- Scripts -->
     <script src="script.js"></script>
-    <?php if (isset($page_js)): ?>
-        <script src="<?php echo $page_js; ?>"></script>
-    <?php endif; ?>
     <script>
         lucide.createIcons();
     </script>

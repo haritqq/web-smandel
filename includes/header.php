@@ -17,9 +17,6 @@
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="style.css">
-    <?php if (isset($page_css)): ?>
-        <link rel="stylesheet" href="<?php echo $page_css; ?>">
-    <?php endif; ?>
 </head>
 <body>
 
