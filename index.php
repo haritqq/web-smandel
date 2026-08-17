@@ -2,6 +2,9 @@
     $page_title = "Beranda";
     $current_page = "home"; 
 
+    // Load visitor counter
+    include 'includes/visitor_counter.php';
+
     // Simulation Data Berita (Nanti bagian ini diganti dengan query MySQL dari Admin Panel)
     // Contoh query DB nantinya: $query = mysqli_query($conn, "SELECT * FROM berita ORDER BY tanggal DESC LIMIT 3");
     $data_berita = [
@@ -190,39 +193,163 @@
         </div>
     </section>
 
-    <!-- 7. SECTION BERITA & ARTIKEL TERBARU -->
+    <!-- 7. SECTION BERITA & ARTIKEL TERBARU DENGAN SIDEBAR -->
     <section class="section-berita" id="berita">
         <div class="container">
-            <div class="section-header-flex">
-                <div>
-                    <span class="section-tag">Kabar Sekolah</span>
-                    <h2 class="section-title">Berita & Informasi Terbaru</h2>
-                </div>
-                <a href="berita.php" class="btn-outline">Lihat Semua Berita <i data-lucide="arrow-right"></i></a>
-            </div>
-
-            <div class="berita-grid">
-                <?php foreach($data_berita as $berita): ?>
-                <article class="berita-card">
-                    <div class="berita-thumb">
-                        <img src="<?php echo $berita['gambar']; ?>" alt="<?php echo $berita['judul']; ?>">
-                        <span class="berita-category"><?php echo $berita['kategori']; ?></span>
-                    </div>
-                    <div class="berita-body">
-                        <div class="berita-meta">
-                            <span><i data-lucide="calendar"></i> <?php echo $berita['tanggal']; ?></span>
-                            <span><i data-lucide="user"></i> Humas SMAN 8</span>
+            <div class="home-layout">
+                <!-- Kolom Kiri: Berita & Informasi -->
+                <div class="home-main">
+                    <div class="section-header-flex">
+                        <div>
+                            <span class="section-tag">Kabar Sekolah</span>
+                            <h2 class="section-title">Berita & Informasi Terbaru</h2>
                         </div>
-                        <h3 class="berita-title">
-                            <a href="berita-detail.php?id=<?php echo $berita['id']; ?>"><?php echo $berita['judul']; ?></a>
-                        </h3>
-                        <p class="berita-excerpt"><?php echo $berita['ringkasan']; ?></p>
-                        <a href="berita-detail.php?id=<?php echo $berita['id']; ?>" class="berita-link">
-                            Lihat Selengkapnya <i data-lucide="chevron-right"></i>
-                        </a>
+                        <a href="berita.php" class="btn-outline">Lihat Semua <i data-lucide="arrow-right"></i></a>
                     </div>
-                </article>
-                <?php endforeach; ?>
+
+                    <div class="berita-grid-two-col">
+                        <?php foreach($data_berita as $berita): ?>
+                        <article class="berita-card">
+                            <div class="berita-thumb">
+                                <img src="<?php echo $berita['gambar']; ?>" alt="<?php echo $berita['judul']; ?>">
+                                <span class="berita-category"><?php echo $berita['kategori']; ?></span>
+                            </div>
+                            <div class="berita-body">
+                                <div class="berita-meta">
+                                    <span><i data-lucide="calendar"></i> <?php echo $berita['tanggal']; ?></span>
+                                    <span><i data-lucide="user"></i> Humas SMAN 8</span>
+                                </div>
+                                <h3 class="berita-title">
+                                    <a href="berita-detail.php?id=<?php echo $berita['id']; ?>"><?php echo $berita['judul']; ?></a>
+                                </h3>
+                                <p class="berita-excerpt"><?php echo $berita['ringkasan']; ?></p>
+                                <a href="berita-detail.php?id=<?php echo $berita['id']; ?>" class="berita-link">
+                                    Lihat Selengkapnya <i data-lucide="chevron-right"></i>
+                                </a>
+                            </div>
+                        </article>
+                        <?php endforeach; ?>
+                    </div>
+                </div>
+
+                <!-- Kolom Kanan: Sidebar Widgets -->
+                <aside class="home-sidebar">
+                    <!-- Widget 1: Tanggal & Waktu -->
+                    <div class="sidebar-widget widget-datetime">
+                        <div class="widget-header">
+                            <i data-lucide="calendar-days"></i>
+                            <h3>Tanggal & Waktu</h3>
+                        </div>
+                        <div class="calendar-card">
+                            <div class="calendar-header" id="calendarDayName">Senin</div>
+                            <div class="calendar-body">
+                                <div class="calendar-date" id="calendarDate">17</div>
+                                <div class="calendar-month-year" id="calendarMonthYear">Agustus 2026</div>
+                            </div>
+                        </div>
+                        <div class="digital-clock">
+                            <span class="clock-time" id="clockTime">00:00:00</span>
+                            <span class="clock-label">WIB</span>
+                        </div>
+                    </div>
+
+                    <!-- Widget 2: Cuaca Banda Aceh -->
+                    <div class="sidebar-widget widget-weather">
+                        <div class="widget-header">
+                            <i data-lucide="cloud-sun"></i>
+                            <h3>Cuaca Banda Aceh</h3>
+                        </div>
+                        <div class="weather-card" id="weatherCard">
+                            <div class="weather-loading">
+                                <div class="spinner"></div>
+                                <span>Mengambil info cuaca...</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Widget 3: Statistik Pengunjung -->
+                    <div class="sidebar-widget widget-visitor">
+                        <div class="widget-header">
+                            <i data-lucide="bar-chart-3"></i>
+                            <h3>Statistik Pengunjung</h3>
+                        </div>
+                        <div class="visitor-stats">
+                            <div class="visitor-item">
+                                <div class="visitor-icon"><i data-lucide="users"></i></div>
+                                <div class="visitor-info">
+                                    <span class="visitor-count"><?php echo number_format($visitor_stats['daily']); ?></span>
+                                    <span class="visitor-label">Hari Ini</span>
+                                </div>
+                            </div>
+                            <div class="visitor-item">
+                                <div class="visitor-icon"><i data-lucide="calendar"></i></div>
+                                <div class="visitor-info">
+                                    <span class="visitor-count"><?php echo number_format($visitor_stats['monthly']); ?></span>
+                                    <span class="visitor-label">Bulan Ini</span>
+                                </div>
+                            </div>
+                            <div class="visitor-item">
+                                <div class="visitor-icon"><i data-lucide="trending-up"></i></div>
+                                <div class="visitor-info">
+                                    <span class="visitor-count"><?php echo number_format($visitor_stats['yearly']); ?></span>
+                                    <span class="visitor-label">Tahun Ini</span>
+                                </div>
+                            </div>
+                            <div class="visitor-item total">
+                                <div class="visitor-icon"><i data-lucide="globe"></i></div>
+                                <div class="visitor-info">
+                                    <span class="visitor-count"><?php echo number_format($visitor_stats['all_time']); ?></span>
+                                    <span class="visitor-label">Total Pengunjung</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Widget 4: Fitur / Agenda Sekolah -->
+                    <div class="sidebar-widget widget-features">
+                        <div class="widget-header">
+                            <i data-lucide="bookmark"></i>
+                            <h3>Agenda & Tautan</h3>
+                        </div>
+                        <div class="sidebar-agenda">
+                            <div class="agenda-item">
+                                <div class="agenda-date">
+                                    <span class="agenda-day">24</span>
+                                    <span class="agenda-month">Agt</span>
+                                </div>
+                                <div class="agenda-detail">
+                                    <h4>Simulasi ANBK Tahap I</h4>
+                                    <p><i data-lucide="clock"></i> 08:00 - Selesai</p>
+                                </div>
+                            </div>
+                            <div class="agenda-item">
+                                <div class="agenda-date">
+                                    <span class="agenda-day">17</span>
+                                    <span class="agenda-month">Sep</span>
+                                </div>
+                                <div class="agenda-detail">
+                                    <h4>Ujian Tengah Semester</h4>
+                                    <p><i data-lucide="clock"></i> 07:30 - 13:00</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="social-links">
+                            <h4>Ikuti Media Sosial Kami</h4>
+                            <div class="social-grid">
+                                <a href="https://instagram.com" target="_blank" class="social-btn instagram" title="Instagram">
+                                    <i data-lucide="instagram"></i>
+                                </a>
+                                <a href="https://youtube.com" target="_blank" class="social-btn youtube" title="YouTube">
+                                    <i data-lucide="youtube"></i>
+                                </a>
+                                <a href="https://facebook.com" target="_blank" class="social-btn facebook" title="Facebook">
+                                    <i data-lucide="facebook"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </aside>
             </div>
         </div>
     </section>
