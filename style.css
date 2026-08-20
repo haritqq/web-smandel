@@ -526,12 +526,15 @@ a {
 }
 
 .quick-grid {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     gap: 20px;
 }
 
+/* Default / Desktop (> 992px): 5 Kolom */
 .quick-card {
+    width: calc(20% - 16px);
     background: var(--white);
     padding: 24px;
     border-radius: var(--radius-md);
@@ -542,8 +545,33 @@ a {
     align-items: center;
     text-align: center;
     position: relative;
+    box-sizing: border-box; /* Memastikan padding tidak merusak ukuran lebar */
 }
 
+/* Tablet (<= 992px): 3 Kolom */
+@media (max-width: 992px) {
+    .quick-card {
+        width: calc(33.333% - 14px);
+    }
+}
+
+/* HP / Layar Kecil (<= 768px): 2 Kolom */
+@media (max-width: 768px) {
+    .quick-grid {
+        gap: 15px; /* Memperkecil jarak antar kartu di layar HP */
+    }
+    .quick-card {
+        width: calc(50% - 8px);
+        padding: 16px 12px; /* Memperkecil padding internal agar teks tidak terpotong */
+    }
+}
+
+/* HP Layar Sangat Kecil (<= 480px): 1 Kolom Penuh */
+@media (max-width: 480px) {
+    .quick-card {
+        width: 100%;
+    }
+}
 .quick-card:hover {
     transform: translateY(-5px);
     box-shadow: var(--shadow-md);

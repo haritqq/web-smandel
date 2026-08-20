@@ -178,7 +178,7 @@
                     <div class="quick-icon"><i data-lucide="download"></i></div>
                     <h4>Download Area</h4>
                     <span class="quick-badge">Berkas</span>
-                </a>
+                </a> -->
                 <a href="#galeri" target="_blank" class="quick-card">
                     <div class="quick-icon"><i data-lucide="image"></i></div>
                     <h4>Galeri Kegiatan</h4>
