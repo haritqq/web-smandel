@@ -1,0 +1,175 @@
+/* ==========================================================================
+   PAGE BANNER
+   ========================================================================== */
+
+
+
+/* ==========================================================================
+   SAMBUTAN KEPALA SEKOLAH SECTION
+   ========================================================================== */
+.sambutan-section {
+    padding: 80px 0;
+    background-color: #FAFCFF;
+}
+
+.sambutan-card {
+    background: #ffffff;
+    border-radius: var(--radius-lg, 16px);
+    padding: 50px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(0, 0, 0, 0.04);
+}
+
+.sambutan-grid {
+    display: grid;
+    grid-template-columns: 320px 1fr;
+    gap: 50px;
+    align-items: start;
+}
+
+/* KARTU FOTO KEPALA SEKOLAH */
+.principal-sidebar {
+    text-align: center;
+    position: sticky;
+    top: 100px;
+}
+
+.principal-image-wrapper {
+    position: relative;
+    border-radius: var(--radius-md, 12px);
+    overflow: hidden;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    border: 4px solid #ffffff;
+}
+
+.principal-image-wrapper img {
+    width: 100%;
+    height: 380px;
+    object-fit: cover;
+    display: block;
+}
+
+.principal-info {
+    background: #FAFCFF;
+    padding: 20px;
+    border-radius: var(--radius-md, 12px);
+    border: 1px solid #E2E8F0;
+}
+
+.principal-info h3 {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--secondary, #1E293B);
+    margin-bottom: 5px;
+}
+
+.principal-info p {
+    font-size: 0.9rem;
+    color: var(--primary, #E65100);
+    font-weight: 600;
+    margin: 0;
+}
+
+/* KONTEN TEKS SAMBUTAN */
+.sambutan-body {
+    color: #334155;
+}
+
+.sambutan-header {
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 2px dashed #E2E8F0;
+}
+
+.sambutan-quote-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(230, 81, 0, 0.1);
+    color: var(--primary, #E65100);
+    padding: 6px 16px;
+    border-radius: 50px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 12px;
+}
+
+.sambutan-header h2 {
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--secondary, #1E293B);
+    margin: 0;
+}
+
+.sambutan-text p {
+    font-size: 1.05rem;
+    line-height: 1.8;
+    margin-bottom: 20px;
+    text-align: justify;
+}
+
+.sambutan-quote {
+    background: #F8FAFC;
+    border-left: 4px solid var(--primary, #E65100);
+    padding: 20px 25px;
+    margin: 30px 0;
+    border-radius: 0 12px 12px 0;
+    font-style: italic;
+    color: #1E293B;
+    font-weight: 600;
+    font-size: 1.1rem;
+    line-height: 1.6;
+}
+
+.sambutan-footer {
+    margin-top: 40px;
+    text-align: right;
+}
+
+.sambutan-footer .closing-text {
+    font-size: 0.95rem;
+    color: #64748B;
+    margin-bottom: 5px;
+}
+
+.sambutan-footer .signature-name {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--secondary, #1E293B);
+}
+
+/* RESPONSIVE DESIGN */
+@media (max-width: 992px) {
+    .sambutan-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+
+    .principal-sidebar {
+        position: static;
+        max-width: 350px;
+        margin: 0 auto;
+    }
+
+    .sambutan-card {
+        padding: 30px 24px;
+    }
+}
+
+@media (max-width: 768px) {
+    .page-banner .page-title {
+        font-size: 2rem;
+    }
+    
+    .sambutan-header h2 {
+        font-size: 1.5rem;
+    }
+
+    .sambutan-text p {
+        font-size: 1rem;
+        text-align: left;
+    }
+}

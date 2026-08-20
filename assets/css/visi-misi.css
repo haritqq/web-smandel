@@ -1,4 +1,24 @@
 /* ==========================================================================
+   PAGE BANNER
+   ========================================================================== */
+.page-banner {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    padding: 60px 0;
+    color: #ffffff;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.page-banner .breadcrumb {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    font-size: 0.95rem;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+/* ==========================================================================
    VISI & MISI SECTION
    ========================================================================== */
 .visi-misi-section {

@@ -57,7 +57,7 @@
                         <a href="#">Profil <i data-lucide="chevron-down"></i></a>
                         <div class="mega-menu">
                             <div class="mega-menu-grid">
-                                <a href="index.php#profil" class="mega-item">
+                                <a href="sambutan.php" class="mega-item">
                                     <i data-lucide="user-check"></i>
                                     <div>
                                         <h4>Sambutan Kepsek</h4>

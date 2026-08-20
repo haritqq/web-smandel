@@ -12,14 +12,14 @@ include 'includes/header.php';
 <!-- BANNER HALAMAN -->
 <section class="page-banner">
     <div class="container">
+        <h1 class="page-title">Visi & Misi Sekolah</h1>
         <div class="breadcrumb">
             <a href="index.php">Beranda</a>
-            <i data-lucide="chevron-right" style="width: 14px; height: 14px;"></i>
+            <span>/</span>
             <span>Profil</span>
-            <i data-lucide="chevron-right" style="width: 14px; height: 14px;"></i>
+            <span>/</span>
             <span>Visi & Misi</span>
         </div>
-        <h1 class="page-title">Visi & Misi Sekolah</h1>
     </div>
 </section>
 

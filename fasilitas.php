@@ -69,14 +69,14 @@
 <!-- PAGE BANNER -->
 <section class="page-banner">
     <div class="container">
-        <h1 class="page-title">Fasilitas Sekolah</h1>
         <div class="breadcrumb">
             <a href="index.php">Beranda</a>
-            <span>/</span>
+            <i data-lucide="chevron-right" style="width: 14px; height: 14px;"></i>
             <span>Profil</span>
-            <span>/</span>
+            <i data-lucide="chevron-right" style="width: 14px; height: 14px;"></i>
             <span>Fasilitas</span>
         </div>
+        <h1 class="page-title">Fasilitas Sekolah</h1>
     </div>
 </section>
 
