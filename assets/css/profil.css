@@ -1,0 +1,198 @@
+/* ==========================================================================
+   PAGE BANNER
+   ========================================================================== */
+.page-banner {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    padding: 60px 0;
+    color: #ffffff;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.page-banner::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at center, rgba(255,255,255,0.1) 0%, transparent 70%);
+}
+
+.page-banner .page-title {
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin-bottom: 10px;
+}
+
+.page-banner .breadcrumb {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    font-size: 0.95rem;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.page-banner .breadcrumb a {
+    color: #ffffff;
+    text-decoration: none;
+}
+
+/* ==========================================================================
+   PROFIL SEKOLAH SECTION
+   ========================================================================== */
+.profil-section {
+    padding: 80px 0;
+    background-color: #FAFCFF;
+}
+
+.profil-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 30px;
+}
+
+.profil-card {
+    background: #ffffff;
+    border-radius: var(--radius-lg, 12px);
+    padding: 35px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    margin-bottom: 30px;
+}
+
+.profil-card-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 2px dashed #E2E8F0;
+}
+
+.profil-card-icon {
+    width: 40px;
+    height: 40px;
+    background: rgba(230, 81, 0, 0.1);
+    color: var(--primary, #E65100);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.profil-card-header h3 {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--secondary, #1E293B);
+    margin: 0;
+}
+
+/* TABLE DATA IDENTITAS */
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.data-table tr {
+    border-bottom: 1px solid #F1F5F9;
+}
+
+.data-table tr:last-child {
+    border-bottom: none;
+}
+
+.data-table td {
+    padding: 12px 8px;
+    font-size: 0.95rem;
+    vertical-align: top;
+}
+
+.data-table td.label-col {
+    font-weight: 600;
+    color: #475569;
+    width: 38%;
+}
+
+.data-table td.colon-col {
+    width: 2%;
+    color: #94A3B8;
+}
+
+.data-table td.value-col {
+    color: #1E293B;
+    font-weight: 500;
+}
+
+/* SIDEBAR SUMMARY CARD */
+.summary-card {
+    background: linear-gradient(135deg, var(--secondary, #1E293B) 0%, #0F172A 100%);
+    color: #ffffff;
+    border-radius: var(--radius-lg, 12px);
+    padding: 30px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    margin-bottom: 30px;
+}
+
+.summary-card h4 {
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+    color: #ffffff;
+}
+
+.summary-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.summary-item:last-child {
+    border-bottom: none;
+}
+
+.summary-icon {
+    width: 40px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--primary, #E65100);
+}
+
+.summary-text span {
+    display: block;
+    font-size: 0.8rem;
+    color: #94A3B8;
+}
+
+.summary-text strong {
+    font-size: 1.1rem;
+    color: #ffffff;
+}
+
+/* RESPONSIVE DESIGN */
+@media (max-width: 992px) {
+    .profil-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .page-banner .page-title {
+        font-size: 2rem;
+    }
+
+    .data-table td.label-col {
+        width: 45%;
+    }
+
+    .profil-card {
+        padding: 20px;
+    }
+}
