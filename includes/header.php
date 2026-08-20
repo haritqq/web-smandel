@@ -64,7 +64,7 @@
                                         <p>Pesan dan visi Kepala Sekolah</p>
                                     </div>
                                 </a>
-                                <a href="index.php#sejarah" class="mega-item">
+                                <a href="sejarah.php" class="mega-item">
                                     <i data-lucide="history"></i>
                                     <div>
                                         <h4>Sejarah Sekolah</h4>
