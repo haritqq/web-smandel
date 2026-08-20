@@ -17,7 +17,6 @@
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="assets/css/visi-misi.css">
 </head>
 <body>
 
@@ -79,7 +78,7 @@
                                         <p>Tujuan dan nilai utama sekolah</p>
                                     </div>
                                 </a>
-                                <a href="index.php#fasilitas" class="mega-item">
+                                <a href="fasilitas.php" class="mega-item">
                                     <i data-lucide="building"></i>
                                     <div>
                                         <h4>Fasilitas</h4>

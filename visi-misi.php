@@ -7,6 +7,8 @@ $current_page = "profil";
 include 'includes/header.php';
 ?>
 
+<link rel="stylesheet" href="assets/css/visi-misi.css">
+
 <!-- BANNER HALAMAN -->
 <section class="page-banner">
     <div class="container">
