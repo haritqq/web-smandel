@@ -52,8 +52,8 @@
                 <h2 class="hero-title">SMA Negeri 8 <br><span>Banda Aceh</span></h2>
                 <p class="hero-subtitle">Mewujudkan Generasi Unggul, Berkarakter, Berprestasi, dan Berwawasan Global</p>
                 <div class="hero-buttons">
-                    <a href="#ppdb" class="btn btn-primary">Pendaftaran SPMB <i data-lucide="arrow-right"></i></a>
-                    <a href="#profil" class="btn btn-secondary">Profil Sekolah</a>
+                    <a href="#berita" class="btn btn-primary">Berita dan Pengumuman <i data-lucide="arrow-right"></i></a>
+                    <a href="#profil" class="btn btn-secondary">Galeri Kegiatan</a>
                 </div>
             </div>
         </div>
