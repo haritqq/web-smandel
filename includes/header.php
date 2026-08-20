@@ -93,7 +93,7 @@
                     <li class="nav-item"><a href="index.php#kesiswaan">Kesiswaan</a></li>
                     <li class="nav-item"><a href="index.php#informasi">Informasi</a></li>
                     <li class="nav-item"><a href="index.php#galeri">Galeri</a></li>
-                    <li class="nav-item"><a href="index.php#kontak">Kontak</a></li>
+                    <!-- <li class="nav-item"><a href="index.php#kontak">Kontak</a></li> -->
                 </ul>
             </nav>
 
