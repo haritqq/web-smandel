@@ -164,10 +164,10 @@
                     <h4>Kalender Akademik</h4>
                     <span class="quick-badge">Agenda</span>
                 </a>
-                <a href="#agenda" target="_blank" class="quick-card">
+                <a href="https://cetakabsen.sma8bna.sch.id/" target="_blank" class="quick-card">
                     <div class="quick-icon"><i data-lucide="clock"></i></div>
-                    <h4>Agenda Sekolah</h4>
-                    <span class="quick-badge">Kegiatan</span>
+                    <h4>Presensi</h4>
+                    <span class="quick-badge">Absensi Sekolah</span>
                 </a>
                 <a href="#pengumuman" target="_blank" class="quick-card">
                     <div class="quick-icon"><i data-lucide="bell"></i></div>
@@ -179,7 +179,7 @@
                     <h4>Download Area</h4>
                     <span class="quick-badge">Berkas</span>
                 </a>
-                <a href="#galeri" target="_blank" class="quick-card">
+                <!-- <a href="#galeri" target="_blank" class="quick-card">
                     <div class="quick-icon"><i data-lucide="image"></i></div>
                     <h4>Galeri Kegiatan</h4>
                     <span class="quick-badge">Foto/Video</span>
@@ -188,7 +188,7 @@
                     <div class="quick-icon"><i data-lucide="phone-call"></i></div>
                     <h4>Hubungi Kami</h4>
                     <span class="quick-badge">Kontak</span>
-                </a>
+                </a> -->
             </div>
         </div>
     </section>
