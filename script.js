@@ -53,12 +53,24 @@ document.addEventListener('DOMContentLoaded', () => {
     // 3. MOBILE MENU TOGGLE
     const mobileToggle = document.getElementById('mobileToggle');
     const navMenu = document.getElementById('navMenu');
+    const dropdownItems = document.querySelectorAll('.nav-item.has-dropdown');
 
     if (mobileToggle && navMenu) {
         mobileToggle.addEventListener('click', () => {
             navMenu.classList.toggle('active');
         });
     }
+
+    // Toggle Dropdown Profil saat diklik di Mobile/Tablet
+    dropdownItems.forEach(item => {
+        const link = item.querySelector('a');
+        link.addEventListener('click', function (e) {
+            if (window.innerWidth <= 991) {
+                e.preventDefault(); // Mencegah link pindah halaman
+                item.classList.toggle('dropdown-open'); // Buka / Tutup dropdown
+            }
+        });
+    });
 
     // 4. DIGITAL CLOCK & CALENDAR WIDGET
     const updateDateTime = () => {
