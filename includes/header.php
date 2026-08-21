@@ -13,7 +13,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- <script src="https://unpkg.com/lucide@latest"></script> -->
+     <script src="assets/js/lucide.min.js"></script>
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="style.css">
@@ -76,6 +77,13 @@
                                     <div>
                                         <h4>Visi & Misi</h4>
                                         <p>Tujuan dan nilai utama sekolah</p>
+                                    </div>
+                                </a>
+                                <a href="profil.php" class="mega-item">
+                                    <i data-lucide="school"></i>
+                                    <div>
+                                        <h4>Profil Sekolah</h4>
+                                        <p>Identitas Lengkap Sekolah</p>
                                     </div>
                                 </a>
                                 <a href="fasilitas.php" class="mega-item">
