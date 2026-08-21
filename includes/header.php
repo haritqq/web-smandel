@@ -93,6 +93,13 @@
                                         <p>Laboratorium, Perpustakaan, dll.</p>
                                     </div>
                                 </a>
+                                <a href="guru.php" class="mega-item">
+                                    <i data-lucide="users"></i>
+                                    <div>
+                                        <h4>Guru & Tendik</h4>
+                                        <p>Tenaga Pendidik & Kependidikan</p>
+                                    </div>
+                                </a>
                             </div>
                         </div>
                     </li>
