@@ -138,19 +138,20 @@ a {
     align-items: center;
     gap: 12px;
     text-decoration: none;
-    flex-shrink: 0;
+    flex-shrink: 0; /* Mencegah logo tergepengkan saat layar menyempit */
 }
 
+/* Pengaturan Gambar Logo */
 .logo-img {
-    height: 52px;
-    width: auto;
+    height: 52px;              /* Tinggi ideal untuk tampilan Desktop */
+    width: auto;               /* Rasio lebar otomatis mengikuti tinggi */
     max-width: 100%;
-    object-fit: contain;
+    object-fit: contain;       /* Menjaga proporsi gambar tidak buram/terdistorsi */
     transition: transform 0.3s ease;
 }
 
 .brand-logo:hover .logo-img {
-    transform: scale(1.04);
+    transform: scale(1.04);     /* Efek hover halus */
 }
 
 .brand-text {
@@ -165,7 +166,7 @@ a {
     line-height: 1.1;
     color: var(--dark);
     margin: 0;
-    white-space: nowrap;
+    white-space: nowrap;       /* Mencegah baris teks terpotong aneh */
 }
 
 .brand-text p {
@@ -197,12 +198,11 @@ a {
     padding: 10px 0;
 }
 
-.nav-item:hover > a, 
-.nav-item.active > a {
+.nav-item:hover > a, .nav-item.active > a {
     color: var(--primary);
 }
 
-/* Mega Menu (Desktop Style) */
+/* Mega Menu */
 .mega-menu {
     position: absolute;
     top: 100%;
@@ -236,7 +236,6 @@ a {
     gap: 12px;
     padding: 12px;
     border-radius: var(--radius-sm);
-    text-decoration: none;
 }
 
 .mega-item:hover {
@@ -251,13 +250,11 @@ a {
 .mega-item h4 {
     font-size: 0.9rem;
     color: var(--dark);
-    margin: 0;
 }
 
 .mega-item p {
     font-size: 0.75rem;
     color: var(--gray-600);
-    margin: 0;
 }
 
 .mobile-toggle {
