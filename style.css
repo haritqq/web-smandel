@@ -138,20 +138,19 @@ a {
     align-items: center;
     gap: 12px;
     text-decoration: none;
-    flex-shrink: 0; /* Mencegah logo tergepengkan saat layar menyempit */
+    flex-shrink: 0;
 }
 
-/* Pengaturan Gambar Logo */
 .logo-img {
-    height: 52px;              /* Tinggi ideal untuk tampilan Desktop */
-    width: auto;               /* Rasio lebar otomatis mengikuti tinggi */
+    height: 52px;
+    width: auto;
     max-width: 100%;
-    object-fit: contain;       /* Menjaga proporsi gambar tidak buram/terdistorsi */
+    object-fit: contain;
     transition: transform 0.3s ease;
 }
 
 .brand-logo:hover .logo-img {
-    transform: scale(1.04);     /* Efek hover halus */
+    transform: scale(1.04);
 }
 
 .brand-text {
@@ -166,7 +165,7 @@ a {
     line-height: 1.1;
     color: var(--dark);
     margin: 0;
-    white-space: nowrap;       /* Mencegah baris teks terpotong aneh */
+    white-space: nowrap;
 }
 
 .brand-text p {
@@ -198,11 +197,12 @@ a {
     padding: 10px 0;
 }
 
-.nav-item:hover > a, .nav-item.active > a {
+.nav-item:hover > a, 
+.nav-item.active > a {
     color: var(--primary);
 }
 
-/* Mega Menu */
+/* Mega Menu (Desktop Style) */
 .mega-menu {
     position: absolute;
     top: 100%;
@@ -236,6 +236,7 @@ a {
     gap: 12px;
     padding: 12px;
     border-radius: var(--radius-sm);
+    text-decoration: none;
 }
 
 .mega-item:hover {
@@ -250,11 +251,13 @@ a {
 .mega-item h4 {
     font-size: 0.9rem;
     color: var(--dark);
+    margin: 0;
 }
 
 .mega-item p {
     font-size: 0.75rem;
     color: var(--gray-600);
+    margin: 0;
 }
 
 .mobile-toggle {
@@ -263,6 +266,64 @@ a {
     border: none;
     cursor: pointer;
 }
+
+/* ==========================================================================
+   RESPONSIVE (MOBILE & TABLET FIX)
+   ========================================================================== */
+@media (max-width: 991px) {
+    .mobile-toggle {
+        display: block; /* Menampilkan tombol hamburger di mobile */
+    }
+
+    .nav-menu {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background: #ffffff;
+        box-shadow: 0 10px 15px rgba(0,0,0,0.1);
+        padding: 20px;
+        display: none; /* Disembunyikan secara default */
+    }
+
+    /* Tambahkan class .active pada JS ketika tombol hamburger diklik */
+    .nav-menu.active {
+        display: block;
+    }
+
+    .nav-menu ul {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    /* Penyesuaian Mega Menu agar menyatu dengan aliran dokumen di mobile */
+    .mega-menu {
+        position: static;
+        width: 100%;
+        transform: none;
+        box-shadow: none;
+        padding: 10px 0 10px 15px;
+        opacity: 1;
+        visibility: visible;
+        display: none; /* Disembunyikan default, muncul saat hover/click parent */
+    }
+
+    .nav-item.has-dropdown:hover .mega-menu,
+    .nav-item.has-dropdown.active .mega-menu {
+        display: block;
+        transform: none;
+    }
+
+    .mega-menu-grid {
+        grid-template-columns: 1fr; /* Menjadi 1 kolom di layar HP */
+        gap: 8px;
+    }
+
+    .mega-item {
+        padding: 8px;
+    }
+}
+
 
 /* ==========================================================================
    3. HERO SECTION

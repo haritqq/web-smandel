@@ -66,7 +66,7 @@
                 <div class="stat-card">
                     <div class="stat-icon"><i data-lucide="users"></i></div>
                     <div class="stat-info">
-                        <span class="stat-number" data-target="850">0</span>
+                        <span class="stat-number" data-target="830">0</span>
                         <span class="stat-label">Siswa Aktif</span>
                     </div>
                 </div>
