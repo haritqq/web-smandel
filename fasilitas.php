@@ -6,11 +6,11 @@
     $data_fasilitas = [
         [
             'id' => 1,
-            'nama' => 'Ruang Kelas Digital',
+            'nama' => 'Ruang Multimedia',
             'kategori' => 'Akademik',
             'icon' => 'monitor',
             'gambar' => 'assets/img/hero1.jpg',
-            'deskripsi' => 'Ruang kelas nyaman berbasis multimedia yang dilengkapi Smart TV/Proyektor, pendingin udara (AC), dan jaringan Wi-Fi cepat.',
+            'deskripsi' => 'Ruang kelas interaktif yang didukung teknologi multimedia modern untuk pengalaman belajar yang optimal dan nyaman.',
             'fitur' => ['AC & Smart TV', 'Wi-Fi Area', 'Kapasitas 36 Siswa']
         ],
         [
@@ -20,28 +20,82 @@
             'icon' => 'cpu',
             'gambar' => 'assets/img/hero2.jpg',
             'deskripsi' => 'Fasilitas komputer spesifikasi tinggi untuk mendukung kegiatan pembelajaran informatika, ANBK, dan simulasi ujian.',
-            'fitur' => ['40 Unit Komputer', 'Full AC & Server', 'Akses Internet Cepat']
+            'fitur' => ['50 Unit Komputer', 'Full AC & Server', 'Akses Internet Cepat']
         ],
         [
             'id' => 3,
-            'nama' => 'Laboratorium IPA Terpadu',
+            'nama' => 'Laboratorium Biologi',
             'kategori' => 'Sains',
-            'icon' => 'flask-conical',
+            'icon' => 'microscope',
             'gambar' => 'assets/img/hero3.jpg',
-            'deskripsi' => 'Dilengkapi alat praktikum Fisika, Kimia, dan Biologi modern untuk menunjang penelitian dan kegiatan eksperimen siswa.',
-            'fitur' => ['Alat Praktikum Lengkap', 'Mikroskop Digital', 'Bahan Uji Standard']
+            'deskripsi' => 'Ruang laboratorium khusus untuk penelitian keanekaragaman hayati, pengamatan mikroskopis, dan eksperimen biologi.',
+            'fitur' => ['Mikroskop Digital & Cahaya', 'Specimen & Prep Wet Lab', 'Peralatan Bedah Hewan']
         ],
         [
             'id' => 4,
+            'nama' => 'Laboratorium Fisika',
+            'kategori' => 'Sains',
+            'icon' => 'zap',
+            'gambar' => 'assets/img/hero1.jpg',
+            'deskripsi' => 'Fasilitas praktikum fisika yang dilengkapi perangkat eksperimen mekanika, optik, termodinamika, dan kelistrikan.',
+            'fitur' => ['Kit Praktikum Mekanika & Optik', 'Perangkat Uji Kelistrikan', 'Meja Praktikum Anti-Getar']
+        ],
+        [
+            'id' => 5,
+            'nama' => 'Laboratorium Kimia',
+            'kategori' => 'Sains',
+            'icon' => 'flask-conical',
+            'gambar' => 'assets/img/hero2.jpg',
+            'deskripsi' => 'Ruang laboratorium kimia dengan standar keamanan lengkap untuk pengujian larutan, reaksi kimia, dan analisis zat.',
+            'fitur' => ['Lemari Asam (Fume Hood)', 'Bahan Kimia Murni & Alat Kaca', 'Wastafel & Safety Shower']
+        ],
+        [
+            'id' => 6,
+            'nama' => 'Ruang Seni & Budaya',
+            'kategori' => 'Kreativitas',
+            'icon' => 'palette',
+            'gambar' => 'assets/img/hero3.jpg',
+            'deskripsi' => 'Wadah ekspresi seni rupa, musik, dan tari yang dilengkapi dengan studio mini serta perlengkapan kesenian.',
+            'fitur' => ['Alat Musik Tradisional & Modern', 'Easel & Perlengkapan Melukis', 'Area Display Karya']
+        ],
+        [
+            'id' => 7,
+            'nama' => 'Ruang PAI & Tahfidz',
+            'kategori' => 'Ibadah',
+            'icon' => 'book-open-check',
+            'gambar' => 'assets/img/hero1.jpg',
+            'deskripsi' => 'Ruang khusus pembelajaran Pendidikan Agama Islam, bimbingan baca Al-Qur\'an, dan program tahfidz siswa.',
+            'fitur' => ['Full AC & Ambal Nyaman', 'Audio Pembelajaran Tajwid', 'Perpustakaan Mini PAI']
+        ],
+        [
+            'id' => 8,
+            'nama' => 'Kantin Sehat & Bersih',
+            'kategori' => 'Fasilitas Umum',
+            'icon' => 'utensils',
+            'gambar' => 'assets/img/hero2.jpg',
+            'deskripsi' => 'Area makan yang bersih dan higienis yang menyediakan pilihan makanan gizi seimbang untuk seluruh siswa dan staf.',
+            'fitur' => ['Sistem Pembayaran Digital', 'Stand Makanan Terverifikasi', 'Area Duduk Luas']
+        ],
+        [
+            'id' => 9,
             'nama' => 'Perpustakaan Digital',
             'kategori' => 'Literasi',
             'icon' => 'book-open',
             'gambar' => 'assets/img/hero1.jpg',
             'deskripsi' => 'Koleksi ribuan buku cetak dan e-book yang terintegrasi dengan e-library system untuk kenyamanan membaca siswa.',
-            'fitur' => ['Area Baca Lesehan & Meja', 'Akses E-Book 24/7', 'Katalog Online']
+            'fitur' => ['Mendukung Segala Perangkat', 'Akses E-Book 24/7', 'Katalog Online']
+        ],
+                [
+            'id' => 10,
+            'nama' => 'Ruang Perpustakaan',
+            'kategori' => 'Literasi',
+            'icon' => 'book-open',
+            'gambar' => 'assets/img/hero1.jpg',
+            'deskripsi' => 'Koleksi ribuan buku cetak dan e-book yang terintegrasi dengan e-library system untuk kenyamanan membaca siswa.',
+            'fitur' => ['Mendukung Segala Perangkat', 'Akses E-Book 24/7', 'Katalog Online']
         ],
         [
-            'id' => 5,
+            'id' => 11,
             'nama' => 'Lapangan Olahraga',
             'kategori' => 'Olahraga',
             'icon' => 'trophy',
@@ -50,8 +104,8 @@
             'fitur' => ['Lapangan Futsal & Basket', 'Tribun Penonton', 'Peralatan Olahraga']
         ],
         [
-            'id' => 6,
-            'nama' => 'Musala & Sarana Ibadah',
+            'id' => 12,
+            'nama' => 'Mushala & Sarana Ibadah',
             'kategori' => 'Ibadah',
             'icon' => 'heart',
             'gambar' => 'assets/img/hero3.jpg',
