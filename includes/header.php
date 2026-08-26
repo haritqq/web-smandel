@@ -30,8 +30,9 @@
                 <!-- <span><i data-lucide="map-pin"></i> Banda Aceh, Aceh</span> -->
             </div>
             <div class="topbar-actions">
-                <a href="index.php#ppdb" class="btn-ppdb">PPDB / SPMB ONLINE</a>
-                <a href="#elearning" class="btn-link">E-Learning</a>
+                <!-- <a href="index.php#ppdb" class="btn-ppdb">PPDB / SPMB ONLINE</a> -->
+                <a href="" class="btn-ppdb">E-Learning</a>
+                <!-- <a href="#elearning" class="btn-link">E-Learning</a> -->
                 <a href="#kontak" class="btn-link">Kontak</a>
             </div>
         </div>

@@ -10,23 +10,23 @@
         'Bentuk Pendidikan' => 'SMA (Sekolah Menengah Atas)',
         'Status Sekolah' => 'Negeri',
         'Status Kepemilikan' => 'Pemerintah Daerah',
-        'SK Pendirian Sekolah' => '425.1/045/1998',
-        'Tanggal SK Pendirian' => '12 Juli 1998',
-        'SK Izin Operasional' => '425.1/045/1998',
-        'Tanggal SK Operasional' => '12 Juli 1998',
+        'SK Pendirian Sekolah' => '*425.1/045/1998',
+        'Tanggal SK Pendirian' => '*12 Juli 1998',
+        'SK Izin Operasional' => '*425.1/045/1998',
+        'Tanggal SK Operasional' => '*12 Juli 1998',
         'Akreditasi' => 'A (Unggul)',
         'SK Akreditasi' => '1347/BAN-SM/SK/2021',
         'Kepala Sekolah' => 'Dr. Erlawana, S.Pd., M.Pd'
     ];
 
     $alamat_sekolah = [
-        'Alamat Jalan' => 'Jl. Twk. H. Hashim Banta Muda No. 8',
-        'Desa / Kelurahan' => 'Gampong Mulia',
+        'Alamat Jalan' => 'Jln. Tgk Chik Dipineung Raya',
+        'Desa / Kelurahan' => 'Kota Baru',
         'Kecamatan' => 'Kuta Alam',
         'Kota' => 'Kota Banda Aceh',
         'Provinsi' => 'Aceh',
-        'Kode Pos' => '23123',
-        'Email Resmi' => 'info@sma8bna.sch.id',
+        'Kode Pos' => '23125',
+        'Email Resmi' => 'sman8bandaaceh01@gmail.com',
         'Situs Web' => 'https://sma8bna.sch.id'
     ];
 
@@ -121,7 +121,7 @@
                         <div class="summary-icon"><i data-lucide="users"></i></div>
                         <div class="summary-text">
                             <span>Siswa Aktif</span>
-                            <strong>850+ Siswa</strong>
+                            <strong>830</strong>
                         </div>
                     </div>
                     <div class="summary-item">

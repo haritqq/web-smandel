@@ -28,8 +28,8 @@
                 <div class="footer-col">
                     <h4>Kontak</h4>
                     <ul>
-                        <li>Telepon: (0651) XXXXX</li>
-                        <li>Email: info@sma8bna.sch.id</li>
+                        <li>Telepon :<br> (+62) 878-8389-1042</li>
+                        <li>Email :<br> sman8bandaaceh01@gmail.com</li>
                     </ul>
                 </div>
             </div>
