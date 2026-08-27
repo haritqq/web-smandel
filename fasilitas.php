@@ -27,7 +27,7 @@
             'nama' => 'Laboratorium Biologi',
             'kategori' => 'Sains',
             'icon' => 'microscope',
-            'gambar' => 'assets/img/hero3.jpg',
+            'gambar' => 'assets/img/biologi.jpeg',
             'deskripsi' => 'Ruang laboratorium khusus untuk penelitian keanekaragaman hayati, pengamatan mikroskopis, dan eksperimen biologi.',
             'fitur' => ['Mikroskop Digital & Cahaya', 'Specimen & Prep Wet Lab', 'Peralatan Bedah Hewan']
         ],
@@ -36,7 +36,7 @@
             'nama' => 'Laboratorium Fisika',
             'kategori' => 'Sains',
             'icon' => 'zap',
-            'gambar' => 'assets/img/hero1.jpg',
+            'gambar' => 'assets/img/fisika.jpeg',
             'deskripsi' => 'Fasilitas praktikum fisika yang dilengkapi perangkat eksperimen mekanika, optik, termodinamika, dan kelistrikan.',
             'fitur' => ['Kit Praktikum Mekanika & Optik', 'Perangkat Uji Kelistrikan', 'Meja Praktikum Anti-Getar']
         ],
@@ -45,7 +45,7 @@
             'nama' => 'Laboratorium Kimia',
             'kategori' => 'Sains',
             'icon' => 'flask-conical',
-            'gambar' => 'assets/img/hero2.jpg',
+            'gambar' => 'assets/img/kimia.jpeg',
             'deskripsi' => 'Ruang laboratorium kimia dengan standar keamanan lengkap untuk pengujian larutan, reaksi kimia, dan analisis zat.',
             'fitur' => ['Lemari Asam (Fume Hood)', 'Bahan Kimia Murni & Alat Kaca', 'Wastafel & Safety Shower']
         ],
@@ -72,16 +72,16 @@
             'nama' => 'Kantin Sehat & Bersih',
             'kategori' => 'Fasilitas Umum',
             'icon' => 'utensils',
-            'gambar' => 'assets/img/hero2.jpg',
+            'gambar' => 'assets/img/kantin.jpeg',
             'deskripsi' => 'Area makan yang bersih dan higienis yang menyediakan pilihan makanan gizi seimbang untuk seluruh siswa dan staf.',
-            'fitur' => ['Sistem Pembayaran Digital', 'Stand Makanan Terverifikasi', 'Area Duduk Luas']
+            'fitur' => ['Makanan Higienis', 'Tempat Bersih Dan Sejuk', 'Area Duduk Luas']
         ],
         [
             'id' => 9,
             'nama' => 'Perpustakaan Digital',
             'kategori' => 'Literasi',
             'icon' => 'book-open',
-            'gambar' => 'assets/img/hero1.jpg',
+            'gambar' => 'assets/img/perpusdigital.jpeg',
             'deskripsi' => 'Koleksi ribuan buku cetak dan e-book yang terintegrasi dengan e-library system untuk kenyamanan membaca siswa.',
             'fitur' => ['Mendukung Segala Perangkat', 'Akses E-Book 24/7', 'Katalog Online']
         ],
@@ -90,7 +90,7 @@
             'nama' => 'Ruang Perpustakaan',
             'kategori' => 'Literasi',
             'icon' => 'book-open',
-            'gambar' => 'assets/img/hero1.jpg',
+            'gambar' => 'assets/img/perpus.jpeg',
             'deskripsi' => 'Koleksi ribuan buku cetak dan e-book yang terintegrasi dengan e-library system untuk kenyamanan membaca siswa.',
             'fitur' => ['Mendukung Segala Perangkat', 'Akses E-Book 24/7', 'Katalog Online']
         ],
@@ -108,7 +108,7 @@
             'nama' => 'Mushala & Sarana Ibadah',
             'kategori' => 'Ibadah',
             'icon' => 'heart',
-            'gambar' => 'assets/img/hero3.jpg',
+            'gambar' => 'assets/img/mushalla.jpeg',
             'deskripsi' => 'Musala bersih dan nyaman yang digunakan untuk pelaksanaan sholat berjemaah, kajian, dan kegiatan keagamaan siswa.',
             'fitur' => ['Tempat Wudu Berpisah', 'Perlengkapan Sholat', 'Full AC']
         ]
