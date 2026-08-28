@@ -49,8 +49,8 @@
 
 .guru-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 25px;
+    grid-template-columns: repeat(5, 1fr); /* Mengubah dari 4 menjadi 5 kolom */
+    gap: 16px; /* Memperkecil gap agar pas di layar desktop */
 }
 
 .guru-card {
@@ -71,9 +71,10 @@
     border-color: rgba(230, 81, 0, 0.2);
 }
 
+/* Penyesuaian agar teks dan foto tetap proporsional saat 5 kolom */
 .guru-thumb {
     position: relative;
-    height: 280px;
+    height: 230px; /* Sedikit mengurangi tinggi gambar agar seimbang */
     overflow: hidden;
     background-color: #f1f5f9;
 }
@@ -106,7 +107,7 @@
 }
 
 .guru-body {
-    padding: 20px 15px;
+    padding: 15px 10px; /* Memperkecil padding internal card */
     flex-grow: 1;
     display: flex;
     flex-direction: column;
@@ -114,7 +115,7 @@
 }
 
 .guru-name {
-    font-size: 1.1rem;
+    font-size: 0.95rem; /* Mengatur ukuran font agar nama panjang tidak pecah */
     font-weight: 700;
     color: var(--secondary, #1E293B);
     margin-bottom: 6px;
@@ -122,17 +123,17 @@
 }
 
 .guru-mapel {
-    font-size: 0.88rem;
+    font-size: 0.82rem;
     color: var(--primary, #E65100);
     font-weight: 600;
-    margin-bottom: 12px;
+    margin-bottom: 10px;
 }
 
 .guru-nip {
-    font-size: 0.8rem;
+    font-size: 0.75rem;
     color: #94A3B8;
     border-top: 1px dashed #E2E8F0;
-    padding-top: 10px;
+    padding-top: 8px;
     margin: 0;
 }
 
