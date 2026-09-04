@@ -175,9 +175,9 @@
                     <span class="quick-badge">Informasi</span>
                 </a>
                 <a href="#download" target="_blank" class="quick-card">
-                    <div class="quick-icon"><i data-lucide="download"></i></div>
-                    <h4>Download Area</h4>
-                    <span class="quick-badge">Berkas</span>
+                    <div class="quick-icon"><i data-lucide="id-card"></i></div>
+                    <h4>Kartu Pelajar Digital</h4>
+                    <span class="quick-badge">Tanda Pengenal</span>
                 </a>
                 <!-- <a href="#galeri" target="_blank" class="quick-card">
                     <div class="quick-icon"><i data-lucide="image"></i></div>

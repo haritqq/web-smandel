@@ -9,7 +9,7 @@
             'nama' => 'Ruang Multimedia',
             'kategori' => 'Akademik',
             'icon' => 'monitor',
-            'gambar' => 'assets/img/hero1.jpg',
+            'gambar' => 'assets/img/.jpg',
             'deskripsi' => 'Ruang kelas interaktif yang didukung teknologi multimedia modern untuk pengalaman belajar yang optimal dan nyaman.',
             'fitur' => ['AC & Smart TV', 'Wi-Fi Area', 'Kapasitas 36 Siswa']
         ],
@@ -18,7 +18,7 @@
             'nama' => 'Laboratorium Komputer',
             'kategori' => 'Teknologi',
             'icon' => 'cpu',
-            'gambar' => 'assets/img/hero2.jpg',
+            'gambar' => 'assets/img/labkom.jpeg',
             'deskripsi' => 'Fasilitas komputer spesifikasi tinggi untuk mendukung kegiatan pembelajaran informatika, ANBK, dan simulasi ujian.',
             'fitur' => ['50 Unit Komputer', 'Full AC & Server', 'Akses Internet Cepat']
         ],
@@ -54,7 +54,7 @@
             'nama' => 'Ruang Seni & Budaya',
             'kategori' => 'Kreativitas',
             'icon' => 'palette',
-            'gambar' => 'assets/img/hero3.jpg',
+            'gambar' => 'assets/img/.jpg',
             'deskripsi' => 'Wadah ekspresi seni rupa, musik, dan tari yang dilengkapi dengan studio mini serta perlengkapan kesenian.',
             'fitur' => ['Alat Musik Tradisional & Modern', 'Easel & Perlengkapan Melukis', 'Area Display Karya']
         ],
@@ -63,7 +63,7 @@
             'nama' => 'Ruang PAI & Tahfidz',
             'kategori' => 'Ibadah',
             'icon' => 'book-open-check',
-            'gambar' => 'assets/img/hero1.jpg',
+            'gambar' => 'assets/img/labpai.jpeg',
             'deskripsi' => 'Ruang khusus pembelajaran Pendidikan Agama Islam, bimbingan baca Al-Qur\'an, dan program tahfidz siswa.',
             'fitur' => ['Full AC & Ambal Nyaman', 'Audio Pembelajaran Tajwid', 'Perpustakaan Mini PAI']
         ],
@@ -99,7 +99,7 @@
             'nama' => 'Lapangan Olahraga',
             'kategori' => 'Olahraga',
             'icon' => 'trophy',
-            'gambar' => 'assets/img/hero2.jpg',
+            'gambar' => 'assets/img/.jpg',
             'deskripsi' => 'Area serbaguna yang dapat digunakan untuk olahraga Basket, Futsal, Voli, serta kegiatan upacara bendera.',
             'fitur' => ['Lapangan Futsal & Basket', 'Tribun Penonton', 'Peralatan Olahraga']
         ],

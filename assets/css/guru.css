@@ -161,6 +161,36 @@
 
 @media (max-width: 480px) {
     .guru-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, 1fr); /* Tetap 2 card per baris */
+        gap: 10px; /* Gap lebih rapat agar muat di HP */
+    }
+
+    .guru-thumb {
+        height: 140px; /* Tinggi gambar dibuat pas agar tidak ter-zoom/besar */
+    }
+
+    .guru-badge {
+        font-size: 0.65rem;
+        padding: 2px 8px;
+        bottom: 6px;
+    }
+
+    .guru-body {
+        padding: 10px 6px;
+    }
+
+    .guru-name {
+        font-size: 0.82rem; /* Ukuran teks disesuaikan agar rapi 2 kolom */
+        margin-bottom: 4px;
+    }
+
+    .guru-mapel {
+        font-size: 0.75rem;
+        margin-bottom: 6px;
+    }
+
+    .guru-nip {
+        font-size: 0.68rem;
+        padding-top: 6px;
     }
 }
