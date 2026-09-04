@@ -1,26 +1,25 @@
 <?php
 session_start();
 
-// Jika admin sudah login, langsung arahkan ke dashboard
+// Jika admin sudah login, langsung arahkan ke index.php
 if (isset($_SESSION['admin_logged_in']) && $_SESSION['admin_logged_in'] === true) {
-    header("Location: dashboard.php");
+    header("Location: index.php");
     exit;
 }
 
 $error_message = '';
 
-// Prose Autentikasi Sederhana
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = trim($_POST['username'] ?? '');
     $password = trim($_POST['password'] ?? '');
 
-    // Kredensial Contoh (Ganti dengan verifikasi Database / password_verify)
+    // Kredensial contoh
     if ($username === 'admin' && $password === 'admin123') {
-        session_regenerate_id(true); // Keamanan dari Session Fixation
+        session_regenerate_id(true);
         $_SESSION['admin_logged_in'] = true;
         $_SESSION['admin_username']  = $username;
 
-        header("Location: dashboard.php");
+        header("Location: index.php");
         exit;
     } else {
         $error_message = "Username atau password salah!";
@@ -33,7 +32,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Administrator | Panel Kontrol</title>
-    <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
     <link rel="stylesheet" href="assets/css/admin-login.css">
 </head>
