@@ -9,7 +9,7 @@
             'nama' => 'Ruang Multimedia',
             'kategori' => 'Akademik',
             'icon' => 'monitor',
-            'gambar' => 'assets/img/.jpg',
+            'gambar' => 'assets/img/multi.jpeg',
             'deskripsi' => 'Ruang kelas interaktif yang didukung teknologi multimedia modern untuk pengalaman belajar yang optimal dan nyaman.',
             'fitur' => ['AC & Smart TV', 'Wi-Fi Area', 'Kapasitas 36 Siswa']
         ],
@@ -54,7 +54,7 @@
             'nama' => 'Ruang Seni & Budaya',
             'kategori' => 'Kreativitas',
             'icon' => 'palette',
-            'gambar' => 'assets/img/.jpg',
+            'gambar' => 'assets/img/labseni.jpeg',
             'deskripsi' => 'Wadah ekspresi seni rupa, musik, dan tari yang dilengkapi dengan studio mini serta perlengkapan kesenian.',
             'fitur' => ['Alat Musik Tradisional & Modern', 'Easel & Perlengkapan Melukis', 'Area Display Karya']
         ],
@@ -99,7 +99,7 @@
             'nama' => 'Lapangan Olahraga',
             'kategori' => 'Olahraga',
             'icon' => 'trophy',
-            'gambar' => 'assets/img/.jpg',
+            'gambar' => 'assets/img/lapangan.jpeg',
             'deskripsi' => 'Area serbaguna yang dapat digunakan untuk olahraga Basket, Futsal, Voli, serta kegiatan upacara bendera.',
             'fitur' => ['Lapangan Futsal & Basket', 'Tribun Penonton', 'Peralatan Olahraga']
         ],

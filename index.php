@@ -66,14 +66,14 @@
                 <div class="stat-card">
                     <div class="stat-icon"><i data-lucide="users"></i></div>
                     <div class="stat-info">
-                        <span class="stat-number" data-target="830">0</span>
+                        <span class="stat-number" data-target="833">0</span>
                         <span class="stat-label">Siswa Aktif</span>
                     </div>
                 </div>
                 <div class="stat-card">
                     <div class="stat-icon"><i data-lucide="user-check"></i></div>
                     <div class="stat-info">
-                        <span class="stat-number" data-target="78">0</span>
+                        <span class="stat-number" data-target="81">0</span>
                         <span class="stat-label">Guru & Tendik</span>
                     </div>
                 </div>
