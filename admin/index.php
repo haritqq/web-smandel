@@ -1,6 +1,7 @@
 <?php
 // 1. Validasi session login
-require_once __DIR__ . '/includes/auth.php';
+require_once __DIR__ . '/config/koneksi.php'; // Koneksi Database
+require_once __DIR__ . '/config/auth.php';
 
 // 2. Ambil parameter 'page' dari URL (Default: 'dashboard')
 $page = $_GET['page'] ?? 'dashboard';
@@ -10,6 +11,7 @@ $page = $_GET['page'] ?? 'dashboard';
 $pages = [
     'dashboard'   => 'views/dashboard.php',
     'siswa'       => 'views/siswa.php',
+    'posts'       => 'views/posts.php', // Menu Postingan
     'guru'        => 'views/guru.php',
     'cetak_absen' => 'views/cetak_absen.php', // Contoh menu baru kedepannya
     'pengaturan'  => 'views/pengaturan.php'

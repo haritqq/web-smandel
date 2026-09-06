@@ -16,6 +16,12 @@ $currentPage = $_GET['page'] ?? 'dashboard';
             </a>
         </li>
         <li>
+            <a href="index.php?page=posts" class="<?= $currentPage === 'posts' ? 'active' : ''; ?>">
+                <i data-lucide="newspaper"></i>
+                <span>Postingan</span>
+            </a>
+        </li>
+        <li>
             <a href="index.php?page=siswa" class="<?= $currentPage === 'siswa' ? 'active' : ''; ?>">
                 <i data-lucide="users"></i>
                 <span>Data Siswa</span>
