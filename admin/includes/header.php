@@ -3,17 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Panel Admin</title>
+    <title>Panel Admin Minimalis</title>
+    <!-- Google Font: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        body { background-color: #f4f6f9; color: #333; }
-        .admin-layout { display: flex; min-height: 100vh; }
-        .main-content { flex: 1; display: flex; flex-direction: column; }
-        .topbar { background-color: #fff; padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
-        .btn-logout { display: flex; align-items: center; gap: 6px; color: #ef4444; text-decoration: none; font-size: 0.9rem; padding: 6px 12px; border: 1px solid #ef4444; border-radius: 6px; }
-        .content { padding: 30px; flex: 1; }
-    </style>
+    <!-- Modern Admin Style -->
+    <link rel="stylesheet" href="assets/css/admin-style.css">
 </head>
 <body>
+<!-- Overlay untuk tampilan mobile saat sidebar terbuka -->
+<div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+
 <div class="admin-layout">

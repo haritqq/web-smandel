@@ -23,12 +23,21 @@ require_once __DIR__ . '/includes/sidebar.php';
 <!-- Bagian Konten Utama (Memuat File Dinamis Sesuai Parameter Page) -->
 <div class="main-content">
     <!-- Navbar Atas -->
+    <!-- Topbar Header dengan Tombol Toggle -->
     <header class="topbar">
-        <h2>Portal Informasi & Kesiswaan</h2>
-        <div style="display: flex; align-items: center; gap: 10px;">
-            <i data-lucide="user-circle"></i>
-            <span>Halo, <strong><?= htmlspecialchars($_SESSION['admin_username'] ?? 'Admin'); ?></strong></span>
-            <a href="logout.php" class="btn-logout" style="margin-left: 15px;">
+        <div style="display: flex; align-items: center; gap: 16px;">
+            <button type="button" class="btn-toggle-sidebar" onclick="toggleSidebar()" title="Kecilkan/Buka Sidebar">
+                <i data-lucide="menu"></i>
+            </button>
+            <h2 class="topbar-title">Portal Informasi & Kesiswaan</h2>
+        </div>
+
+        <div class="user-profile">
+            <div class="user-info">
+                <i data-lucide="user-circle"></i>
+                <span>Halo, <strong><?= htmlspecialchars($_SESSION['admin_username'] ?? 'Admin'); ?></strong></span>
+            </div>
+            <a href="logout.php" class="btn-logout">
                 <i data-lucide="log-out" style="width: 16px; height: 16px;"></i>
                 <span>Keluar</span>
             </a>
