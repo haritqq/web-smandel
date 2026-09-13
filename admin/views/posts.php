@@ -49,11 +49,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // 1. TAMBAH POSTINGAN
     if (isset($_POST['submit_post'])) {
-        $judul    = mysqli_real_escape_string($koneksi, trim($_POST['judul'] ?? ''));
-        $kategori = mysqli_real_escape_string($koneksi, trim($_POST['kategori'] ?? 'Berita'));
-        $konten   = mysqli_real_escape_string($koneksi, trim($_POST['konten'] ?? ''));
-        $status   = mysqli_real_escape_string($koneksi, trim($_POST['status'] ?? 'Diterbitkan'));
-        $user_id  = $_SESSION['admin_id'] ?? 1;
+        $judul      = mysqli_real_escape_string($koneksi, trim($_POST['judul'] ?? ''));
+        $kategori   = mysqli_real_escape_string($koneksi, trim($_POST['kategori'] ?? 'Berita'));
+        $konten     = mysqli_real_escape_string($koneksi, trim($_POST['konten'] ?? ''));
+        $status     = mysqli_real_escape_string($koneksi, trim($_POST['status'] ?? 'Diterbitkan'));
+        $user_id    = $_SESSION['admin_id'] ?? 1;
+        
+        // Tangkap Tanggal yang Diinput Admin (Jika kosong, gunakan tanggal & waktu saat ini)
+        $created_at = !empty($_POST['created_at']) ? $_POST['created_at'] : date('Y-m-d H:i:s');
 
         $base_slug = strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $judul)));
         $slug      = $base_slug;
@@ -63,8 +66,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         if (!empty($judul) && !empty($konten)) {
-            $queryInsert = "INSERT INTO posts (judul, slug, kategori, konten, user_id, status) 
-                            VALUES ('$judul', '$slug', '$kategori', '$konten', '$user_id', '$status')";
+            $queryInsert = "INSERT INTO posts (judul, slug, kategori, konten, user_id, status, created_at) 
+                            VALUES ('$judul', '$slug', '$kategori', '$konten', '$user_id', '$status', '$created_at')";
             if (mysqli_query($koneksi, $queryInsert)) {
                 $newPostId = mysqli_insert_id($koneksi);
 
@@ -84,13 +87,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // 2. EDIT POSTINGAN
     if (isset($_POST['update_post'])) {
-        $id_post  = (int)$_POST['post_id'];
-        $judul    = mysqli_real_escape_string($koneksi, trim($_POST['judul'] ?? ''));
-        $kategori = mysqli_real_escape_string($koneksi, trim($_POST['kategori'] ?? 'Berita'));
-        $konten   = mysqli_real_escape_string($koneksi, trim($_POST['konten'] ?? ''));
-        $status   = mysqli_real_escape_string($koneksi, trim($_POST['status'] ?? 'Diterbitkan'));
+        $id_post    = (int)$_POST['post_id'];
+        $judul      = mysqli_real_escape_string($koneksi, trim($_POST['judul'] ?? ''));
+        $kategori   = mysqli_real_escape_string($koneksi, trim($_POST['kategori'] ?? 'Berita'));
+        $konten     = mysqli_real_escape_string($koneksi, trim($_POST['konten'] ?? ''));
+        $status     = mysqli_real_escape_string($koneksi, trim($_POST['status'] ?? 'Diterbitkan'));
+        
+        // Tangkap Tanggal Baru yang Diubah Admin
+        $created_at = !empty($_POST['created_at']) ? $_POST['created_at'] : date('Y-m-d H:i:s');
 
-        $queryUpdate = "UPDATE posts SET judul = '$judul', kategori = '$kategori', konten = '$konten', status = '$status' WHERE id = $id_post";
+        $queryUpdate = "UPDATE posts 
+                        SET judul = '$judul', 
+                            kategori = '$kategori', 
+                            konten = '$konten', 
+                            status = '$status', 
+                            created_at = '$created_at' 
+                        WHERE id = $id_post";
+                        
         if (mysqli_query($koneksi, $queryUpdate)) {
             // Tambah File Baru (jika ada)
             if (!empty($_FILES['media_files']['name'][0])) {
@@ -134,7 +147,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 // Ambil Data Postingan
-$queryFetch  = "SELECT posts.*, users.nama_lengkap AS penulis FROM posts JOIN users ON posts.user_id = users.id ORDER BY posts.id DESC";
+$queryFetch  = "SELECT posts.*, users.nama_lengkap AS penulis FROM posts JOIN users ON posts.user_id = users.id ORDER BY posts.created_at DESC";
 $resultPosts = mysqli_query($koneksi, $queryFetch);
 ?>
 
@@ -180,12 +193,14 @@ $resultPosts = mysqli_query($koneksi, $queryFetch);
             <input type="text" name="judul" id="postJudul" required placeholder="Masukkan judul..." style="width: 100%; padding: 10px; border: 1px solid var(--border-color); border-radius: 8px;">
         </div>
 
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px;">
             <div>
                 <label style="display: block; font-weight: 500; margin-bottom: 6px;">Kategori</label>
                 <select name="kategori" id="postKategori" style="width: 100%; padding: 10px; border: 1px solid var(--border-color); border-radius: 8px; background: #fff;">
                     <option value="Berita">Berita</option>
                     <option value="Pengumuman">Pengumuman</option>
+                    <option value="Prestasi">Prestasi</option>
+                    <option value="Kegiatan">Kegiatan</option>
                 </select>
             </div>
             <div>
@@ -194,6 +209,11 @@ $resultPosts = mysqli_query($koneksi, $queryFetch);
                     <option value="Diterbitkan">Diterbitkan</option>
                     <option value="Draf">Draf</option>
                 </select>
+            </div>
+            <!-- FITUR BARU: ATUR TANGGAL PUBLISH -->
+            <div>
+                <label style="display: block; font-weight: 500; margin-bottom: 6px;">Tanggal & Waktu Publish</label>
+                <input type="datetime-local" name="created_at" id="postCreatedAt" required style="width: 100%; padding: 10px; border: 1px solid var(--border-color); border-radius: 8px; background: #fff;">
             </div>
         </div>
 
@@ -245,7 +265,7 @@ $resultPosts = mysqli_query($koneksi, $queryFetch);
                     <th style="padding: 14px 24px;">Judul & Media</th>
                     <th style="padding: 14px 20px;">Kategori</th>
                     <th style="padding: 14px 20px;">Penulis</th>
-                    <th style="padding: 14px 20px;">Tanggal</th>
+                    <th style="padding: 14px 20px;">Tanggal Publish</th>
                     <th style="padding: 14px 20px;">Status</th>
                     <th style="padding: 14px 20px; text-align: center;">Aksi</th>
                 </tr>
@@ -280,7 +300,7 @@ $resultPosts = mysqli_query($koneksi, $queryFetch);
                                 </span>
                             </td>
                             <td style="padding: 16px 20px; color: var(--text-muted);"><?= htmlspecialchars($row['penulis']); ?></td>
-                            <td style="padding: 16px 20px; color: var(--text-muted);"><?= date('d M Y', strtotime($row['created_at'])); ?></td>
+                            <td style="padding: 16px 20px; color: var(--text-muted);"><?= date('d M Y H:i', strtotime($row['created_at'])); ?> WIB</td>
                             <td style="padding: 16px 20px;">
                                 <span style="color: <?= $row['status'] === 'Diterbitkan' ? '#16a34a' : '#ea580c'; ?>; font-weight: 500;">
                                     <?= htmlspecialchars($row['status']); ?>
@@ -339,6 +359,23 @@ $resultPosts = mysqli_query($koneksi, $queryFetch);
         });
     });
 
+    // Format Tanggal Untuk Datetime-Local Input (YYYY-MM-DDTHH:MM)
+    function formatDatetimeForInput(dateString) {
+        let d = dateString ? new Date(dateString) : new Date();
+        let month = '' + (d.getMonth() + 1);
+        let day = '' + d.getDate();
+        let year = d.getFullYear();
+        let hours = '' + d.getHours();
+        let minutes = '' + d.getMinutes();
+
+        if (month.length < 2) month = '0' + month;
+        if (day.length < 2) day = '0' + day;
+        if (hours.length < 2) hours = '0' + hours;
+        if (minutes.length < 2) minutes = '0' + minutes;
+
+        return `${year}-${month}-${day}T${hours}:${minutes}`;
+    }
+
     // Tambah Dinamis Field Link
     function addLinkInput(value = '', type = 'gambar') {
         const container = document.getElementById('linkContainer');
@@ -362,6 +399,7 @@ $resultPosts = mysqli_query($koneksi, $queryFetch);
         document.getElementById('postJudul').value = '';
         document.getElementById('postKategori').value = 'Berita';
         document.getElementById('postStatus').value = 'Diterbitkan';
+        document.getElementById('postCreatedAt').value = formatDatetimeForInput(); // Set tanggal sekarang
         document.getElementById('linkContainer').innerHTML = '';
         document.getElementById('existingMediaContainer').style.display = 'none';
         $('#editor').trumbowyg('html', '');
@@ -377,6 +415,7 @@ $resultPosts = mysqli_query($koneksi, $queryFetch);
         document.getElementById('postJudul').value = data.judul;
         document.getElementById('postKategori').value = data.kategori;
         document.getElementById('postStatus').value = data.status;
+        document.getElementById('postCreatedAt').value = formatDatetimeForInput(data.created_at); // Load tanggal postingan lama
         document.getElementById('linkContainer').innerHTML = '';
         $('#editor').trumbowyg('html', data.konten);
 

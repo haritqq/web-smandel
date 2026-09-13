@@ -48,7 +48,7 @@ $page_title = "Beranda";
     <section class="hero-section">
         <div class="hero-slider">
             <div class="slide active" style="background-image: url('assets/img/hero1.jpg');"></div>
-            <div class="slide" style="background-image: url('assets/img/hero2.jpg');"></div>
+            <div class="slide" style="background-image: url('assets/img/slide1.jpeg');"></div>
             <div class="slide" style="background-image: url('assets/img/hero3.jpg');"></div>
         </div>
         <div class="hero-overlay"></div>

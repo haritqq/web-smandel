@@ -77,10 +77,44 @@
         <!-- Gambar Utama -->
         <img src="<?= htmlspecialchars($gambar_url); ?>" alt="<?= htmlspecialchars($berita['judul']); ?>" style="width: 100%; height: auto; max-height: 480px; object-fit: cover; border-radius: var(--radius-md, 12px); margin-bottom: 30px;">
 
-        <!-- Isi Konten Berita -->
-        <div class="detail-content" style="line-height: 1.8; color: var(--dark, #1e293b); font-size: 1.05rem;">
-            <?= nl2br($berita['konten']); ?>
-        </div>
+        <!-- STYLING KHUSUS UNTUK FORMAT KONTEN EDITOR -->
+<style>
+    .detail-content {
+        line-height: 1.8;
+        color: var(--dark, #1e293b);
+        font-size: 1.05rem;
+    }
+    .detail-content p {
+        margin-bottom: 1.5rem;
+    }
+    .detail-content a {
+        color: #2563eb; /* Warna biru untuk URL/Link */
+        text-decoration: underline;
+        font-weight: 500;
+    }
+    .detail-content a:hover {
+        color: #1d4ed8;
+    }
+    .detail-content ul, .detail-content ol {
+        margin-bottom: 1.5rem;
+        padding-left: 1.5rem;
+    }
+    .detail-content li {
+        margin-bottom: 0.5rem;
+    }
+    .detail-content strong {
+        font-weight: 700;
+    }
+    .detail-content em {
+        font-style: italic;
+    }
+</style>
+
+<!-- ISI KONTEN BERITA -->
+<div class="detail-content">
+    <!-- Render langsung HTML bawaan dari Trumbowyg editor -->
+    <?= $berita['konten']; ?>
+</div>
 
         <!-- Navigasi Kembali -->
         <div style="margin-top: 40px; border-top: 1px solid #E2E8F0; padding-top: 20px; display: flex; gap: 12px;">
