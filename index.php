@@ -228,10 +228,12 @@ $page_title = "Beranda";
                                         <span><i data-lucide="user"></i> <?php echo htmlspecialchars($berita['penulis']); ?></span>
                                     </div>
                                     <h3 class="berita-title">
-                                        <a href="berita.php"><?php echo htmlspecialchars($berita['judul']); ?></a>
+                                        <!-- Ditambahkan parameter ?id= agar mengarah ke detail berita spesifik -->
+                                        <a href="berita-detail.php?id=<?php echo $berita['id']; ?>"><?php echo htmlspecialchars($berita['judul']); ?></a>
                                     </h3>
                                     <p class="berita-excerpt"><?php echo htmlspecialchars($berita['ringkasan']); ?></p>
-                                    <a href="berita.php" class="berita-link">
+                                    <!-- Diubah dari berita.php menjadi berita-detail.php?id=... -->
+                                    <a href="berita-detail.php?id=<?php echo $berita['id']; ?>" class="berita-link">
                                         Lihat Selengkapnya <i data-lucide="chevron-right"></i>
                                     </a>
                                 </div>

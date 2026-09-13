@@ -12,7 +12,7 @@
         ],
         [
             'title' => 'Pengumuman Resmi',
-            'desc'  => 'Informasi penting seputar edaran sekolah, agenda libur, dan pemberitahuan.',
+            'desc'  => 'Dokumen, berkas dan informasi penting lainnya seputar edaran sekolah, agenda libur, dan pemberitahuan.',
             'icon'  => 'megaphone',
             'link'  => 'pengumuman.php'
         ],
