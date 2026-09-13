@@ -1,40 +1,47 @@
 <?php 
-    $page_title = "Beranda";
+$page_title = "Beranda";
     $current_page = "home"; 
 
-    // Load visitor counter
+    // 1. Hubungkan Koneksi Database & Visitor Counter
+    require_once __DIR__ . '/admin/config/koneksi.php';
     include 'includes/visitor_counter.php';
 
-    // Simulation Data Berita (Nanti bagian ini diganti dengan query MySQL dari Admin Panel)
-    // Contoh query DB nantinya: $query = mysqli_query($conn, "SELECT * FROM berita ORDER BY tanggal DESC LIMIT 3");
-    $data_berita = [
-        [
-            'id' => 1,
-            'judul' => 'Siswa SMAN 8 Banda Aceh Raih Medali Emas Olimpiade Sains',
-            'ringkasan' => 'Prestasi membanggakan kembali diukir oleh siswa SMAN 8 Banda Aceh dalam ajang kompetisi sains tingkat provinsi.',
-            'kategori' => 'Prestasi',
-            'tanggal' => '10 Agu 2026',
-            'gambar' => 'assets/img/hero1.jpg'
-        ],
-        [
-            'id' => 2,
-            'judul' => 'Pelaksanaan Kegiatan Peringatan Hari Pendidikan Nasional',
-            'ringkasan' => 'Seluruh warga sekolah antusias mengikuti upacara bendera dan pentas seni dalam memperingati Hardiknas.',
-            'kategori' => 'Kegiatan',
-            'tanggal' => '02 Mei 2026',
-            'gambar' => 'assets/img/hero2.jpg'
-        ],
-        [
-            'id' => 3,
-            'judul' => 'Sosialisasi Penerimaan Mahasiswa Baru Bersama Alumni',
-            'ringkasan' => 'Ikatan Alumni SMAN 8 Banda Aceh menggelar sesi berbagi pengalaman dan strategi masuk Perguruan Tinggi Negeri.',
-            'kategori' => 'Pengumuman',
-            'tanggal' => '15 Apr 2026',
-            'gambar' => 'assets/img/hero3.jpg'
-        ]
-    ];
+    // 2. Ambil Berita dari Database MySQL (Menarik data dari Admin Panel)
+    $data_berita = [];
+    $query_berita = "SELECT posts.*, users.nama_lengkap AS penulis 
+                     FROM posts 
+                     JOIN users ON posts.user_id = users.id 
+                     WHERE posts.status = 'Diterbitkan' 
+                     ORDER BY posts.id DESC LIMIT 6";
+    $result_berita = mysqli_query($koneksi, $query_berita);
 
-    include 'includes/header.php'; 
+    if ($result_berita && mysqli_num_rows($result_berita) > 0) {
+        while ($row = mysqli_fetch_assoc($result_berita)) {
+            // Ambil gambar utama dari tabel post_media (jika ada)
+            $postId = $row['id'];
+            $query_media = "SELECT url_atau_file, tipe FROM post_media WHERE post_id = $postId AND jenis = 'gambar' LIMIT 1";
+            $res_media = mysqli_query($koneksi, $query_media);
+            
+            $gambar_url = 'assets/img/noimage-v2.jpg'; // Gambar default jika berita tidak punya gambar
+            if ($res_media && mysqli_num_rows($res_media) > 0) {
+                $m = mysqli_fetch_assoc($res_media);
+                $gambar_url = ($m['tipe'] === 'file') ? 'admin/uploads/' . $m['url_atau_file'] : $m['url_atau_file'];
+            }
+
+            $data_berita[] = [
+                'id'        => $row['id'],
+                'slug'      => $row['slug'],
+                'judul'     => $row['judul'],
+                'ringkasan' => substr(strip_tags($row['konten']), 0, 120) . '...',
+                'kategori'  => $row['kategori'],
+                'tanggal'   => date('d M Y', strtotime($row['created_at'])),
+                'penulis'   => $row['penulis'],
+                'gambar'    => $gambar_url
+            ];
+        }
+    }
+
+    include 'includes/header.php';
 ?>
 
     <!-- 3. HERO SECTION WITH SLIDER -->
@@ -208,27 +215,31 @@
                     </div>
 
                     <div class="berita-grid-two-col">
-                        <?php foreach($data_berita as $berita): ?>
-                        <article class="berita-card">
-                            <div class="berita-thumb">
-                                <img src="<?php echo $berita['gambar']; ?>" alt="<?php echo $berita['judul']; ?>">
-                                <span class="berita-category"><?php echo $berita['kategori']; ?></span>
-                            </div>
-                            <div class="berita-body">
-                                <div class="berita-meta">
-                                    <span><i data-lucide="calendar"></i> <?php echo $berita['tanggal']; ?></span>
-                                    <span><i data-lucide="user"></i> Humas SMAN 8</span>
+                        <?php if (!empty($data_berita)): ?>
+                            <?php foreach($data_berita as $berita): ?>
+                            <article class="berita-card">
+                                <div class="berita-thumb">
+                                    <img src="<?php echo htmlspecialchars($berita['gambar']); ?>" alt="<?php echo htmlspecialchars($berita['judul']); ?>">
+                                    <span class="berita-category"><?php echo htmlspecialchars($berita['kategori']); ?></span>
                                 </div>
-                                <h3 class="berita-title">
-                                    <a href="berita-detail.php?id=<?php echo $berita['id']; ?>"><?php echo $berita['judul']; ?></a>
-                                </h3>
-                                <p class="berita-excerpt"><?php echo $berita['ringkasan']; ?></p>
-                                <a href="berita-detail.php?id=<?php echo $berita['id']; ?>" class="berita-link">
-                                    Lihat Selengkapnya <i data-lucide="chevron-right"></i>
-                                </a>
-                            </div>
-                        </article>
-                        <?php endforeach; ?>
+                                <div class="berita-body">
+                                    <div class="berita-meta">
+                                        <span><i data-lucide="calendar"></i> <?php echo htmlspecialchars($berita['tanggal']); ?></span>
+                                        <span><i data-lucide="user"></i> <?php echo htmlspecialchars($berita['penulis']); ?></span>
+                                    </div>
+                                    <h3 class="berita-title">
+                                        <a href="berita.php"><?php echo htmlspecialchars($berita['judul']); ?></a>
+                                    </h3>
+                                    <p class="berita-excerpt"><?php echo htmlspecialchars($berita['ringkasan']); ?></p>
+                                    <a href="berita.php" class="berita-link">
+                                        Lihat Selengkapnya <i data-lucide="chevron-right"></i>
+                                    </a>
+                                </div>
+                            </article>
+                            <?php endforeach; ?>
+                        <?php else: ?>
+                            <p style="color: #64748b; grid-column: 1 / -1; padding: 20px; text-align: center;">Belum ada berita atau pengumuman yang diterbitkan.</p>
+                        <?php endif; ?>
                     </div>
                 </div>
 
