@@ -23,14 +23,20 @@ $currentPage = $_GET['page'] ?? 'dashboard';
         </li>
         <li>
             <a href="index.php?page=siswa" class="<?= $currentPage === 'siswa' ? 'active' : ''; ?>">
-                <i data-lucide="users"></i>
-                <span>Data Siswa</span>
+                <i data-lucide="tags"></i>
+                <span>Tags & Mentions</span>
             </a>
         </li>
         <li>
             <a href="index.php?page=cetak_absen" class="<?= $currentPage === 'cetak_absen' ? 'active' : ''; ?>">
-                <i data-lucide="printer"></i>
-                <span>Cetak Absen</span>
+                <i data-lucide="images"></i>
+                <span>Media</span>
+            </a>
+        </li>
+        <li>
+            <a href="index.php?page=komentar" class="<?= $currentPage === 'komentar' ? 'active' : ''; ?>">
+                <i data-lucide="messages-square"></i>
+                <span>Komentar</span>
             </a>
         </li>
         <li>

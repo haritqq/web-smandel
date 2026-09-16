@@ -6,29 +6,28 @@ $page_title = "Beranda";
     require_once __DIR__ . '/admin/config/koneksi.php';
     include 'includes/visitor_counter.php';
 
-    // 2. Ambil Berita dari Database MySQL (Menarik data dari Admin Panel)
-    $data_berita = [];
+    // 2. Ambil Berita dari Database MySQL (Tetap DESC agar tahun terbaru paling atas)
+    $data_berita_raw = [];
     $query_berita = "SELECT posts.*, users.nama_lengkap AS penulis 
                      FROM posts 
                      JOIN users ON posts.user_id = users.id 
                      WHERE posts.status = 'Diterbitkan' 
-                     ORDER BY posts.id DESC LIMIT 6";
+                     ORDER BY posts.created_at DESC LIMIT 6";
     $result_berita = mysqli_query($koneksi, $query_berita);
 
     if ($result_berita && mysqli_num_rows($result_berita) > 0) {
         while ($row = mysqli_fetch_assoc($result_berita)) {
-            // Ambil gambar utama dari tabel post_media (jika ada)
             $postId = $row['id'];
             $query_media = "SELECT url_atau_file, tipe FROM post_media WHERE post_id = $postId AND jenis = 'gambar' LIMIT 1";
             $res_media = mysqli_query($koneksi, $query_media);
             
-            $gambar_url = 'assets/img/noimage-v2.jpg'; // Gambar default jika berita tidak punya gambar
+            $gambar_url = 'assets/img/noimage-v2.jpg';
             if ($res_media && mysqli_num_rows($res_media) > 0) {
                 $m = mysqli_fetch_assoc($res_media);
                 $gambar_url = ($m['tipe'] === 'file') ? 'admin/uploads/' . $m['url_atau_file'] : $m['url_atau_file'];
             }
 
-            $data_berita[] = [
+            $data_berita_raw[] = [
                 'id'        => $row['id'],
                 'slug'      => $row['slug'],
                 'judul'     => $row['judul'],
@@ -39,6 +38,15 @@ $page_title = "Beranda";
                 'gambar'    => $gambar_url
             ];
         }
+    }
+
+    // PROSES MEMBALIK URUTAN PER BARIS (PER 2 ITEM):
+    // Membagi array menjadi pasangan baris (2 kolom) lalu membalik posisi kiri-kanannya
+    $data_berita = [];
+    $chunks = array_chunk($data_berita_raw, 2); // Pecah jadi 2 berita per baris
+
+    foreach ($chunks as $chunk) {
+        $data_berita = array_merge($data_berita, array_reverse($chunk));
     }
 
     include 'includes/header.php';
@@ -214,7 +222,8 @@ $page_title = "Beranda";
                         <a href="berita.php" class="btn-outline">Lihat Semua <i data-lucide="arrow-right"></i></a>
                     </div>
 
-                    <div class="berita-grid-two-col">
+                    <!-- Container Kartu Berita -->
+                    <div class="berita-grid-two-col" id="beritaContainer">
                         <?php if (!empty($data_berita)): ?>
                             <?php foreach($data_berita as $berita): ?>
                             <article class="berita-card">
@@ -228,11 +237,9 @@ $page_title = "Beranda";
                                         <span><i data-lucide="user"></i> <?php echo htmlspecialchars($berita['penulis']); ?></span>
                                     </div>
                                     <h3 class="berita-title">
-                                        <!-- Ditambahkan parameter ?id= agar mengarah ke detail berita spesifik -->
                                         <a href="berita-detail.php?id=<?php echo $berita['id']; ?>"><?php echo htmlspecialchars($berita['judul']); ?></a>
                                     </h3>
                                     <p class="berita-excerpt"><?php echo htmlspecialchars($berita['ringkasan']); ?></p>
-                                    <!-- Diubah dari berita.php menjadi berita-detail.php?id=... -->
                                     <a href="berita-detail.php?id=<?php echo $berita['id']; ?>" class="berita-link">
                                         Lihat Selengkapnya <i data-lucide="chevron-right"></i>
                                     </a>
@@ -243,6 +250,15 @@ $page_title = "Beranda";
                             <p style="color: #64748b; grid-column: 1 / -1; padding: 20px; text-align: center;">Belum ada berita atau pengumuman yang diterbitkan.</p>
                         <?php endif; ?>
                     </div>
+
+                    <!-- Tombol Tampilkan Lainnya -->
+                    <?php if (count($data_berita) >= 6): ?>
+                    <div style="text-align: center; margin-top: 32px;">
+                        <button id="btnLoadMore" class="btn-outline" style="padding: 12px 28px; cursor: pointer; font-size: 0.95rem; font-weight: 600;">
+                            Tampilkan Lainnya <i data-lucide="chevron-down" style="width: 18px; height: 18px; vertical-align: middle;"></i>
+                        </button>
+                    </div>
+                    <?php endif; ?>
                 </div>
 
                 <!-- Kolom Kanan: Sidebar Widgets -->
@@ -366,5 +382,43 @@ $page_title = "Beranda";
             </div>
         </div>
     </section>
+
+    <script>
+    let offsetBerita = 6; // Dimulai dari offset 6 karena 6 berita pertama sudah tampil
+
+    document.getElementById('btnLoadMore')?.addEventListener('click', function() {
+        const btn = this;
+        btn.innerHTML = 'Memuat...';
+        btn.disabled = true;
+
+        fetch('load-more-berita.php?offset=' + offsetBerita)
+            .then(response => response.text())
+            .then(data => {
+                if (data.trim() !== '') {
+                    // Tambahkan berita baru ke dalam container
+                    document.getElementById('beritaContainer').insertAdjacentHTML('beforeend', data);
+                    
+                    // Re-initialize ikon Lucide pada elemen berita baru
+                    if (typeof lucide !== 'undefined') {
+                        lucide.createIcons();
+                    }
+
+                    offsetBerita += 6; // Tambah offset untuk klik berikutnya
+                    btn.innerHTML = 'Tampilkan Lainnya <i data-lucide="chevron-down" style="width: 18px; height: 18px; vertical-align: middle;"></i>';
+                    btn.disabled = false;
+                } else {
+                    // Jika sudah tidak ada berita lagi
+                    btn.innerHTML = 'Semua Berita Telah Tampil';
+                    btn.style.opacity = '0.6';
+                    btn.style.cursor = 'default';
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                btn.innerHTML = 'Gagal memuat berita';
+                btn.disabled = false;
+            });
+        });
+    </script>
 
 <?php include 'includes/footer.php'; ?>

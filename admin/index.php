@@ -13,6 +13,7 @@ $pages = [
     'siswa'       => 'views/siswa.php',
     'posts'       => 'views/posts.php', // Menu Postingan
     'guru'        => 'views/guru.php',
+    'komentar'    => 'views/komentar.php',
     'cetak_absen' => 'views/cetak_absen.php', // Contoh menu baru kedepannya
     'pengaturan'  => 'views/pengaturan.php'
 ];
