@@ -31,7 +31,7 @@ require_once __DIR__ . '/includes/sidebar.php';
             <button type="button" class="btn-toggle-sidebar" onclick="toggleSidebar()" title="Kecilkan/Buka Sidebar">
                 <i data-lucide="menu"></i>
             </button>
-            <h2 class="topbar-title">Portal Informasi & Kesiswaan</h2>
+            <h2 class="topbar-title">Portal Informasi Web SMA Negeri 8 Banda Aceh</h2>
         </div>
 
         <div class="user-profile">
