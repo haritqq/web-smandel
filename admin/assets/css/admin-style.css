@@ -127,14 +127,65 @@ DROPDOWN MENU USER PROFILE HEADER
 .user-profile-btn {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 12px;
     background: transparent;
     border: none;
     cursor: pointer;
     padding: 6px 12px;
     border-radius: 8px;
     transition: background 0.2s;
-    color: var(--text-main, #1e293b);
+    color: var(--text-main);
+    text-align: left;
+}
+
+.user-profile-btn:hover {
+    background: var(--bg-main);
+}
+
+.user-details {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+/* Baris Atas: Role & Badge Online */
+.user-details .user-role-status {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+}
+
+.status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-weight: 500;
+}
+
+.status-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.status-dot.online {
+    background-color: #22c55e; /* Hijau */
+    box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.2);
+}
+
+.status-dot.offline {
+    background-color: #94a3b8; /* Abu-abu */
+}
+
+/* Baris Bawah: Nama Lengkap */
+.user-details .user-fullname {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--text-main);
+    line-height: 1.2;
 }
 
 .user-profile-btn:hover {

@@ -9,12 +9,12 @@ $page = $_GET['page'] ?? 'dashboard';
 // 3. Whitelist halaman yang diizinkan beserta jalurnya di folder views/
 // Jika buat menu/fitur baru (misal: cetak absen), cukup tambahkan ke array ini
 $pages = [
-    'dashboard'   => 'views/dashboard.php',
-    'siswa'       => 'views/siswa.php',
-    'posts'       => 'views/posts.php', // Menu Postingan
-    'guru'        => 'views/guru.php',
-    'komentar'    => 'views/komentar.php',
-    'cetak_absen' => 'views/cetak_absen.php', // Contoh menu baru kedepannya
+    'dashboard'     => 'views/dashboard.php',
+    'siswa'         => 'views/siswa.php',
+    'posts'         => 'views/posts.php', // Menu Postingan
+    'guru'          => 'views/guru.php',
+    'komentar'      => 'views/komentar.php',
+    'cetak_absen'   => 'views/cetak_absen.php', // Contoh menu baru kedepannya
     'profil'        => 'views/profil.php',        // Tambah Halaman Detail Akun
     'ubah_password' => 'views/ubah_password.php' // Tambah Halaman Ubah Password
     // 'pengaturan'  => 'views/pengaturan.php'
@@ -24,11 +24,6 @@ $pages = [
 require_once __DIR__ . '/includes/header.php';
 require_once __DIR__ . '/includes/sidebar.php';
 ?>
-
-<!-- STYLING KHUSUS DROPDOWN PROFILE HEADER -->
-<style>
-   
-</style>
 
 <!-- Bagian Konten Utama (Memuat File Dinamis Sesuai Parameter Page) -->
 <div class="main-content">
@@ -42,30 +37,46 @@ require_once __DIR__ . '/includes/sidebar.php';
         <h2 class="topbar-title">Portal Informasi Web SMA Negeri 8 Banda Aceh</h2>
     </div>
 
-    <!-- USER PROFILE DROPDOWN MENU -->
-    <div class="user-profile-dropdown">
-        <button type="button" class="user-profile-btn" onclick="toggleProfileDropdown(event)">
-            <i data-lucide="user-circle" style="width: 22px; height: 22px;"></i>
-            <span>Halo, <strong><?= htmlspecialchars($_SESSION['admin_username'] ?? 'Admin'); ?></strong></span>
-            <i data-lucide="chevron-down" style="width: 16px; height: 16px;"></i>
-        </button>
-
-        <!-- ISI MENU DROPDOWN -->
-        <div class="dropdown-menu-profile" id="profileDropdown">
-            <a href="index.php?page=profil">
-                <i data-lucide="user" style="width: 16px; height: 16px;"></i>
-                <span>Detail Akun</span>
-            </a>
-            <a href="index.php?page=ubah_password">
-                <i data-lucide="key-round" style="width: 16px; height: 16px;"></i>
-                <span>Ubah Password</span>
-            </a>
-            <a href="logout.php" class="logout-item">
-                <i data-lucide="log-out" style="width: 16px; height: 16px;"></i>
-                <span>Keluar</span>
-            </a>
+<!-- USER PROFILE DROPDOWN MENU (2 BARIS) -->
+<div class="user-profile-dropdown">
+    <button type="button" class="user-profile-btn" onclick="toggleProfileDropdown(event)">
+        <i data-lucide="user-circle" style="width: 32px; height: 32px; color: var(--primary);"></i>
+        
+        <div class="user-details">
+            <!-- Baris 1: Halo [Role] & Status Online -->
+            <div class="user-role-status">
+                <span>Halo, <?= htmlspecialchars(ucfirst($_SESSION['admin_role'] ?? 'Administrator')); ?></span>
+                <span class="status-badge" style="color: #15803d;">
+                    <span class="status-dot online"></span>
+                    Online
+                </span>
+            </div>
+            
+            <!-- Baris 2: Nama Lengkap -->
+            <div class="user-fullname">
+                <?= htmlspecialchars($_SESSION['admin_nama'] ?? $_SESSION['admin_username'] ?? 'Admin SMAN 8'); ?>
+            </div>
         </div>
+
+        <i data-lucide="chevron-down" style="width: 16px; height: 16px; margin-left: 4px; color: var(--text-muted);"></i>
+    </button>
+
+    <!-- MENU DROPDOWN -->
+    <div class="dropdown-menu-profile" id="profileDropdown">
+        <a href="index.php?page=profil">
+            <i data-lucide="user" style="width: 16px; height: 16px;"></i>
+            <span>Detail Akun</span>
+        </a>
+        <a href="index.php?page=ubah_password">
+            <i data-lucide="key-round" style="width: 16px; height: 16px;"></i>
+            <span>Ubah Password</span>
+        </a>
+        <a href="logout.php" class="logout-item">
+            <i data-lucide="log-out" style="width: 16px; height: 16px;"></i>
+            <span>Keluar</span>
+        </a>
     </div>
+</div>
 </header>
 
 <script>
