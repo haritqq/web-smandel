@@ -39,11 +39,11 @@ $currentPage = $_GET['page'] ?? 'dashboard';
                 <span>Komentar</span>
             </a>
         </li>
-        <li>
+        <!-- <li>
             <a href="index.php?page=pengaturan" class="<?= $currentPage === 'pengaturan' ? 'active' : ''; ?>">
                 <i data-lucide="settings"></i>
                 <span>Pengaturan</span>
             </a>
-        </li>
+        </li> -->
     </ul>
 </aside>

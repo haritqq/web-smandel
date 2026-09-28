@@ -3,6 +3,14 @@
     <p>Ringkasan informasi dan aktivitas sistem terkini.</p>
 </div>
 
+<!-- Welcome Panel -->
+<div class="welcome-card">
+    <h3>Selamat Datang kembali, <?= htmlspecialchars($_SESSION['admin_username'] ?? 'Admin'); ?> 👋</h3>
+    <p>
+        Sistem kontrol administrator berjalan optimal. Anda dapat mengelola serta memperbarui pengumuman melalui menu navigasi di sebelah kiri. Harap Bijak dalam memposting konten. OTORIAS BESAR membawa tanggung jawab yang BESAR.
+    </p>
+</div>
+
 <!-- Grid Cards Minimalis -->
 <div class="stats-grid">
     <div class="stat-card">
@@ -36,10 +44,3 @@
     </div>
 </div>
 
-<!-- Welcome Panel -->
-<div class="welcome-card">
-    <h3>Selamat Datang kembali, <?= htmlspecialchars($_SESSION['admin_username'] ?? 'Admin'); ?> 👋</h3>
-    <p>
-        Sistem kontrol administrator berjalan optimal. Anda dapat mengelola data kesiswaan, jadwal cetak absensi, serta memperbarui pengumuman melalui menu navigasi di sebelah kiri.
-    </p>
-</div>

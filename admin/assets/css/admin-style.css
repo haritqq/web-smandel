@@ -116,40 +116,72 @@ body {
     color: var(--text-main);
 }
 
-.user-profile {
-    display: flex;
-    align-items: center;
-    gap: 16px;
+/* ===================================================
+DROPDOWN MENU USER PROFILE HEADER
+=================================================== */
+.user-profile-dropdown {
+    position: relative;
+    display: inline-block;
 }
 
-.user-info {
+.user-profile-btn {
     display: flex;
     align-items: center;
     gap: 8px;
-    color: var(--text-muted);
-    font-size: 0.9rem;
-}
-
-.user-info strong {
-    color: var(--text-main);
-}
-
-.btn-logout {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    color: #ef4444;
-    background: #fef2f2;
-    text-decoration: none;
-    font-size: 0.85rem;
-    font-weight: 500;
-    padding: 8px 14px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 6px 12px;
     border-radius: 8px;
-    transition: all 0.2s;
+    transition: background 0.2s;
+    color: var(--text-main, #1e293b);
 }
 
-.btn-logout:hover {
-    background-color: #fee2e2;
+.user-profile-btn:hover {
+    background: #f1f5f9;
+}
+.dropdown-menu-profile {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 120%;
+    width: 200px;
+    background: #ffffff;
+    border: 1px solid var(--border-color, #e2e8f0);
+    border-radius: 8px;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    z-index: 100;
+    overflow: hidden;
+}
+
+.dropdown-menu-profile.show {
+    display: block;
+}
+
+.dropdown-menu-profile a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 16px;
+    color: #334155;
+    text-decoration: none;
+    font-size: 0.875rem;
+    transition: background 0.2s, color 0.2s;
+}
+
+.dropdown-menu-profile a:hover {
+    background: #f8fafc;
+    color: #0284c7;
+}
+
+.dropdown-menu-profile a.logout-item {
+    color: #ef4444;
+    border-top: 1px solid #f1f5f9;
+}
+
+.dropdown-menu-profile a.logout-item:hover {
+    background: #fef2f2;
+    color: #dc2626;
 }
 
 /* Content Body */
@@ -220,9 +252,10 @@ body {
 
 .welcome-card {
     background: var(--card-bg);
-    padding: 28px;
+    padding: 12px;
     border-radius: var(--radius);
     border: 1px solid var(--border-color);
+    margin-bottom: 28px;
 }
 
 .welcome-card h3 {

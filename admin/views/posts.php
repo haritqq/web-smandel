@@ -55,7 +55,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $status     = mysqli_real_escape_string($koneksi, trim($_POST['status'] ?? 'Diterbitkan'));
         $user_id    = $_SESSION['admin_id'] ?? 1;
         
-        // Tangkap Tanggal yang Diinput Admin (Jika kosong, gunakan tanggal & waktu saat ini)
         $created_at = !empty($_POST['created_at']) ? $_POST['created_at'] : date('Y-m-d H:i:s');
 
         $base_slug = strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $judul)));
@@ -71,11 +70,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if (mysqli_query($koneksi, $queryInsert)) {
                 $newPostId = mysqli_insert_id($koneksi);
 
-                // Upload File Lokal
                 if (!empty($_FILES['media_files']['name'][0])) {
                     uploadMultipleMedia($_FILES['media_files'], $newPostId, $koneksi);
                 }
-                // Simpan Link Ekstrenal
                 if (!empty($_POST['media_links'])) {
                     saveMediaLinks($_POST['media_links'], $_POST['media_link_types'] ?? [], $newPostId, $koneksi);
                 }
@@ -93,7 +90,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $konten     = mysqli_real_escape_string($koneksi, trim($_POST['konten'] ?? ''));
         $status     = mysqli_real_escape_string($koneksi, trim($_POST['status'] ?? 'Diterbitkan'));
         
-        // Tangkap Tanggal Baru yang Diubah Admin
         $created_at = !empty($_POST['created_at']) ? $_POST['created_at'] : date('Y-m-d H:i:s');
 
         $queryUpdate = "UPDATE posts 
@@ -105,11 +101,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         WHERE id = $id_post";
                         
         if (mysqli_query($koneksi, $queryUpdate)) {
-            // Tambah File Baru (jika ada)
             if (!empty($_FILES['media_files']['name'][0])) {
                 uploadMultipleMedia($_FILES['media_files'], $id_post, $koneksi);
             }
-            // Tambah Link Baru (jika ada)
             if (!empty($_POST['media_links'])) {
                 saveMediaLinks($_POST['media_links'], $_POST['media_link_types'] ?? [], $id_post, $koneksi);
             }
@@ -146,21 +140,42 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-// Ambil Data Postingan
-$queryFetch  = "SELECT posts.*, users.nama_lengkap AS penulis FROM posts JOIN users ON posts.user_id = users.id ORDER BY posts.created_at DESC";
+// --- LOGIKA PAGINATION ---
+$limit = 10;
+$p_page = isset($_GET['p']) ? (int)$_GET['p'] : 1;
+if ($p_page < 1) $p_page = 1;
+$offset = ($p_page - 1) * $limit;
+
+// Hitung Total Data
+$resCount = mysqli_query($koneksi, "SELECT COUNT(*) as total FROM posts");
+$totalData = mysqli_fetch_assoc($resCount)['total'] ?? 0;
+$totalPages = ceil($totalData / $limit);
+
+// Ambil Data Sesuai Pagination
+$queryFetch  = "SELECT posts.*, users.nama_lengkap AS penulis 
+                FROM posts 
+                JOIN users ON posts.user_id = users.id 
+                ORDER BY posts.created_at DESC 
+                LIMIT $limit OFFSET $offset";
 $resultPosts = mysqli_query($koneksi, $queryFetch);
 ?>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Trumbowyg/2.27.0/ui/trumbowyg.min.css">
 
 <style>
-    .media-modal { display: none; position: fixed; inset: 0; background: rgba(15, 23, 42, 0.75); backdrop-filter: blur(4px); z-index: 999; align-items: center; justify-content: center; padding: 20px; }
-    .media-modal-content { background: #fff; border-radius: 12px; max-width: 800px; width: 100%; max-height: 90vh; overflow: hidden; display: flex; flex-direction: column; }
-    .media-modal-header { padding: 16px 20px; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center; }
-    .media-modal-body { padding: 20px; display: flex; flex-direction: column; gap: 16px; align-items: center; justify-content: center; background: #0f172a; max-height: 70vh; overflow-y: auto; color: #fff; }
-    .media-modal-body img, .media-modal-body video { max-width: 100%; max-height: 50vh; border-radius: 6px; }
-    .media-modal-body audio { width: 100%; }
+    /* Styling Pop-Up Modal (Form & Media Preview) */
+    .app-modal { display: none; position: fixed; inset: 0; background: rgba(15, 23, 42, 0.75); backdrop-filter: blur(4px); z-index: 9999; align-items: center; justify-content: center; padding: 20px; }
+    .app-modal-content { background: #fff; border-radius: 12px; max-width: 850px; width: 100%; max-height: 90vh; overflow: hidden; display: flex; flex-direction: column; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1); }
+    .app-modal-header { padding: 16px 24px; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center; background: #fff; }
+    .app-modal-body { padding: 24px; overflow-y: auto; flex: 1; }
     .link-input-group { display: flex; gap: 8px; margin-bottom: 8px; }
+    
+    /* Pagination Styles */
+    .pagination-container { display: flex; justify-content: space-between; align-items: center; padding: 16px 24px; border-top: 1px solid var(--border-color); background: #fff; }
+    .pagination-btns { display: flex; gap: 6px; }
+    .page-link { display: inline-flex; align-items: center; justify-content: center; padding: 6px 12px; border: 1px solid var(--border-color); border-radius: 6px; color: var(--text-main); text-decoration: none; font-size: 0.85rem; font-weight: 500; background: #fff; }
+    .page-link.active { background: var(--primary); color: #fff; border-color: var(--primary); }
+    .page-link.disabled { opacity: 0.5; pointer-events: none; background: #f1f5f9; }
 </style>
 
 <div class="page-header" style="display: flex; justify-content: space-between; align-items: center;">
@@ -177,80 +192,6 @@ $resultPosts = mysqli_query($koneksi, $queryFetch);
 <?php if (!empty($success_msg)): ?>
     <div style="background: #f0fdf4; border: 1px solid #bbf7d0; color: #166534; padding: 12px 16px; border-radius: 8px; margin-bottom: 20px;"><?= htmlspecialchars($success_msg); ?></div>
 <?php endif; ?>
-
-<!-- FORM PANEL -->
-<div id="formPostPanel" class="welcome-card" style="display: none; margin-bottom: 28px;">
-    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
-        <h3 id="formTitle">Tambah Postingan Baru</h3>
-        <button type="button" onclick="closeForm()" style="background: transparent; border: none; color: var(--text-muted); cursor: pointer;"><i data-lucide="x"></i></button>
-    </div>
-
-    <form action="index.php?page=posts" method="POST" enctype="multipart/form-data" style="display: flex; flex-direction: column; gap: 16px;">
-        <input type="hidden" name="post_id" id="postId">
-
-        <div>
-            <label style="display: block; font-weight: 500; margin-bottom: 6px;">Judul Postingan</label>
-            <input type="text" name="judul" id="postJudul" required placeholder="Masukkan judul..." style="width: 100%; padding: 10px; border: 1px solid var(--border-color); border-radius: 8px;">
-        </div>
-
-        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px;">
-            <div>
-                <label style="display: block; font-weight: 500; margin-bottom: 6px;">Kategori</label>
-                <select name="kategori" id="postKategori" style="width: 100%; padding: 10px; border: 1px solid var(--border-color); border-radius: 8px; background: #fff;">
-                    <option value="Berita">Berita</option>
-                    <option value="Pengumuman">Pengumuman</option>
-                    <option value="Prestasi">Prestasi</option>
-                    <option value="Kegiatan">Kegiatan</option>
-                </select>
-            </div>
-            <div>
-                <label style="display: block; font-weight: 500; margin-bottom: 6px;">Status Publikasi</label>
-                <select name="status" id="postStatus" style="width: 100%; padding: 10px; border: 1px solid var(--border-color); border-radius: 8px; background: #fff;">
-                    <option value="Diterbitkan">Diterbitkan</option>
-                    <option value="Draf">Draf</option>
-                </select>
-            </div>
-            <!-- FITUR BARU: ATUR TANGGAL PUBLISH -->
-            <div>
-                <label style="display: block; font-weight: 500; margin-bottom: 6px;">Tanggal & Waktu Publish</label>
-                <input type="datetime-local" name="created_at" id="postCreatedAt" required style="width: 100%; padding: 10px; border: 1px solid var(--border-color); border-radius: 8px; background: #fff;">
-            </div>
-        </div>
-
-        <!-- UPLOAD LOKAL LEBIH DARI SATU -->
-        <div style="background: #f8fafc; padding: 16px; border-radius: 8px; border: 1px solid var(--border-color);">
-            <label style="display: block; font-weight: 600; margin-bottom: 6px;">1. Upload File (Gambar/Video/Suara - Bisa Pilih Banyak)</label>
-            <input type="file" name="media_files[]" multiple accept="image/*,video/*,audio/*" style="width: 100%; padding: 8px; background: #fff; border: 1px solid var(--border-color); border-radius: 6px;">
-            <small style="color: var(--text-muted); display: block; margin-top: 4px;">Tahan tombol Ctrl (atau Shift) saat memilih file untuk mengunggah lebih dari satu.</small>
-        </div>
-
-        <!-- LINK EKSTERNAL (GOOGLE DRIVE / PHOTOS / CDN) -->
-        <div style="background: #f8fafc; padding: 16px; border-radius: 8px; border: 1px solid var(--border-color);">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-                <label style="font-weight: 600;">2. Tambah Dari Link/URL (Hemat Penyimpanan Hosting)</label>
-                <button type="button" onclick="addLinkInput()" style="background: var(--primary); color: #fff; border: none; padding: 4px 10px; border-radius: 6px; font-size: 0.8rem; cursor: pointer;">+ Tambah Link</button>
-            </div>
-            <div id="linkContainer"></div>
-            <small style="color: var(--text-muted);">Masukkan link dari Google Drive, Google Photos, YouTube, atau Cloud Storage lain.</small>
-        </div>
-
-        <!-- LIST MEDIA YANG SUDAH TER-UPLOAD (UNTUK EDIT FORM) -->
-        <div id="existingMediaContainer" style="display: none; background: #fff; padding: 12px; border-radius: 8px; border: 1px solid var(--border-color);">
-            <label style="display: block; font-weight: 600; margin-bottom: 8px;">Media Terpasang Saat Ini:</label>
-            <div id="existingMediaList" style="display: flex; flex-direction: column; gap: 6px;"></div>
-        </div>
-
-        <div>
-            <label style="display: block; font-weight: 500; margin-bottom: 6px;">Isi Konten</label>
-            <textarea name="konten" id="editor" required></textarea>
-        </div>
-
-        <div style="display: flex; justify-content: flex-end; gap: 10px;">
-            <button type="button" onclick="closeForm()" style="padding: 10px 18px; border: 1px solid var(--border-color); background: #fff; border-radius: 8px; cursor: pointer;">Batal</button>
-            <button type="submit" name="submit_post" id="btnSubmit" style="padding: 10px 18px; border: none; background: var(--primary); color: #fff; border-radius: 8px; cursor: pointer;">Simpan & Publikasikan</button>
-        </div>
-    </form>
-</div>
 
 <!-- TABEL DAFTAR POSTINGAN -->
 <div class="welcome-card" style="padding: 0; overflow: hidden;">
@@ -274,7 +215,6 @@ $resultPosts = mysqli_query($koneksi, $queryFetch);
                 <?php if ($resultPosts && mysqli_num_rows($resultPosts) > 0): ?>
                     <?php while ($row = mysqli_fetch_assoc($resultPosts)): ?>
                         <?php 
-                            // Fetch Media Terkait Post
                             $pId = $row['id'];
                             $getMedia = mysqli_query($koneksi, "SELECT * FROM post_media WHERE post_id = $pId");
                             $mediaList = [];
@@ -312,7 +252,7 @@ $resultPosts = mysqli_query($koneksi, $queryFetch);
                                         <i data-lucide="edit-3" style="width: 16px; height: 16px;"></i>
                                     </button>
                                     
-                                    <form action="index.php?page=posts" method="POST" onsubmit="return confirm('Yakin ingin menghapus postingan ini?');" style="display: inline;">
+                                    <form action="index.php?page=posts&p=<?= $p_page; ?>" method="POST" onsubmit="return confirm('Yakin ingin menghapus postingan ini?');" style="display: inline;">
                                         <input type="hidden" name="post_id" value="<?= $row['id']; ?>">
                                         <button type="submit" name="delete_post" style="background: #fef2f2; color: #ef4444; border: none; padding: 6px 10px; border-radius: 6px; cursor: pointer;" title="Hapus">
                                             <i data-lucide="trash-2" style="width: 16px; height: 16px;"></i>
@@ -330,18 +270,107 @@ $resultPosts = mysqli_query($koneksi, $queryFetch);
             </tbody>
         </table>
     </div>
+
+    <!-- FITUR PAGINATION -->
+    <?php if ($totalPages > 1): ?>
+    <div class="pagination-container">
+        <span style="font-size: 0.85rem; color: var(--text-muted);">
+            Menampilkan <?= ($offset + 1); ?> - <?= min($offset + $limit, $totalData); ?> dari <?= $totalData; ?> postingan
+        </span>
+        <div class="pagination-btns">
+            <a href="index.php?page=posts&p=<?= ($p_page - 1); ?>" class="page-link <?= ($p_page <= 1) ? 'disabled' : ''; ?>">Prev</a>
+            
+            <?php for ($i = 1; $i <= $totalPages; $i++): ?>
+                <a href="index.php?page=posts&p=<?= $i; ?>" class="page-link <?= ($p_page == $i) ? 'active' : ''; ?>"><?= $i; ?></a>
+            <?php endfor; ?>
+
+            <a href="index.php?page=posts&p=<?= ($p_page + 1); ?>" class="page-link <?= ($p_page >= $totalPages) ? 'disabled' : ''; ?>">Next</a>
+        </div>
+    </div>
+    <?php endif; ?>
 </div>
 
-<!-- POPUP MODAL MULTI-MEDIA -->
-<div id="mediaModal" class="media-modal" onclick="closeMediaPopup(event)">
-    <div class="media-modal-content" onclick="event.stopPropagation()">
-        <div class="media-modal-header">
+<!-- POP-UP MODAL FORM (TAMBAH / EDIT) -->
+<div id="formModal" class="app-modal" onclick="closeForm(event)">
+    <div class="app-modal-content" onclick="event.stopPropagation()">
+        <div class="app-modal-header">
+            <h3 id="formTitle" style="font-size: 1.1rem; font-weight: 600;">Tambah Postingan Baru</h3>
+            <button type="button" onclick="closeForm()" style="background: transparent; border: none; color: var(--text-muted); cursor: pointer;"><i data-lucide="x"></i></button>
+        </div>
+        <div class="app-modal-body">
+            <form action="index.php?page=posts&p=<?= $p_page; ?>" method="POST" enctype="multipart/form-data" style="display: flex; flex-direction: column; gap: 16px;">
+                <input type="hidden" name="post_id" id="postId">
+
+                <div>
+                    <label style="display: block; font-weight: 500; margin-bottom: 6px;">Judul Postingan</label>
+                    <input type="text" name="judul" id="postJudul" required placeholder="Masukkan judul..." style="width: 100%; padding: 10px; border: 1px solid var(--border-color); border-radius: 8px;">
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px;">
+                    <div>
+                        <label style="display: block; font-weight: 500; margin-bottom: 6px;">Kategori</label>
+                        <select name="kategori" id="postKategori" style="width: 100%; padding: 10px; border: 1px solid var(--border-color); border-radius: 8px; background: #fff;">
+                            <option value="Berita">Berita</option>
+                            <option value="Pengumuman">Pengumuman</option>
+                            <option value="Prestasi">Prestasi</option>
+                            <option value="Kegiatan">Kegiatan</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label style="display: block; font-weight: 500; margin-bottom: 6px;">Status Publikasi</label>
+                        <select name="status" id="postStatus" style="width: 100%; padding: 10px; border: 1px solid var(--border-color); border-radius: 8px; background: #fff;">
+                            <option value="Diterbitkan">Diterbitkan</option>
+                            <option value="Draf">Draf</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label style="display: block; font-weight: 500; margin-bottom: 6px;">Tanggal & Waktu Publish</label>
+                        <input type="datetime-local" name="created_at" id="postCreatedAt" required style="width: 100%; padding: 10px; border: 1px solid var(--border-color); border-radius: 8px; background: #fff;">
+                    </div>
+                </div>
+
+                <div style="background: #f8fafc; padding: 16px; border-radius: 8px; border: 1px solid var(--border-color);">
+                    <label style="display: block; font-weight: 600; margin-bottom: 6px;">1. Upload File (Gambar/Video/Suara)</label>
+                    <input type="file" name="media_files[]" multiple accept="image/*,video/*,audio/*" style="width: 100%; padding: 8px; background: #fff; border: 1px solid var(--border-color); border-radius: 6px;">
+                </div>
+
+                <div style="background: #f8fafc; padding: 16px; border-radius: 8px; border: 1px solid var(--border-color);">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                        <label style="font-weight: 600;">2. Tambah Dari Link/URL</label>
+                        <button type="button" onclick="addLinkInput()" style="background: var(--primary); color: #fff; border: none; padding: 4px 10px; border-radius: 6px; font-size: 0.8rem; cursor: pointer;">+ Tambah Link</button>
+                    </div>
+                    <div id="linkContainer"></div>
+                </div>
+
+                <div id="existingMediaContainer" style="display: none; background: #fff; padding: 12px; border-radius: 8px; border: 1px solid var(--border-color);">
+                    <label style="display: block; font-weight: 600; margin-bottom: 8px;">Media Terpasang Saat Ini:</label>
+                    <div id="existingMediaList" style="display: flex; flex-direction: column; gap: 6px;"></div>
+                </div>
+
+                <div>
+                    <label style="display: block; font-weight: 500; margin-bottom: 6px;">Isi Konten</label>
+                    <textarea name="konten" id="editor" required></textarea>
+                </div>
+
+                <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 10px;">
+                    <button type="button" onclick="closeForm()" style="padding: 10px 18px; border: 1px solid var(--border-color); background: #fff; border-radius: 8px; cursor: pointer;">Batal</button>
+                    <button type="submit" name="submit_post" id="btnSubmit" style="padding: 10px 18px; border: none; background: var(--primary); color: #fff; border-radius: 8px; cursor: pointer;">Simpan & Publikasikan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- POPUP MODAL MULTI-MEDIA PREVIEW -->
+<div id="mediaModal" class="app-modal" onclick="closeMediaPopup(event)">
+    <div class="app-modal-content" onclick="event.stopPropagation()">
+        <div class="app-modal-header">
             <h3 id="mediaModalTitle" style="font-size: 1rem; font-weight: 600;">Lampiran Media</h3>
             <button type="button" onclick="closeMediaPopup()" style="background: transparent; border: none; cursor: pointer; color: var(--text-muted);">
                 <i data-lucide="x"></i>
             </button>
         </div>
-        <div class="media-modal-body" id="mediaModalBody"></div>
+        <div class="app-modal-body" id="mediaModalBody" style="background: #0f172a; color: #fff; text-align: center;"></div>
     </div>
 </div>
 
@@ -359,7 +388,6 @@ $resultPosts = mysqli_query($koneksi, $queryFetch);
         });
     });
 
-    // Format Tanggal Untuk Datetime-Local Input (YYYY-MM-DDTHH:MM)
     function formatDatetimeForInput(dateString) {
         let d = dateString ? new Date(dateString) : new Date();
         let month = '' + (d.getMonth() + 1);
@@ -376,7 +404,6 @@ $resultPosts = mysqli_query($koneksi, $queryFetch);
         return `${year}-${month}-${day}T${hours}:${minutes}`;
     }
 
-    // Tambah Dinamis Field Link
     function addLinkInput(value = '', type = 'gambar') {
         const container = document.getElementById('linkContainer');
         const div = document.createElement('div');
@@ -399,14 +426,14 @@ $resultPosts = mysqli_query($koneksi, $queryFetch);
         document.getElementById('postJudul').value = '';
         document.getElementById('postKategori').value = 'Berita';
         document.getElementById('postStatus').value = 'Diterbitkan';
-        document.getElementById('postCreatedAt').value = formatDatetimeForInput(); // Set tanggal sekarang
+        document.getElementById('postCreatedAt').value = formatDatetimeForInput();
         document.getElementById('linkContainer').innerHTML = '';
         document.getElementById('existingMediaContainer').style.display = 'none';
         $('#editor').trumbowyg('html', '');
         
         document.getElementById('btnSubmit').name = 'submit_post';
         document.getElementById('btnSubmit').innerText = 'Simpan & Publikasikan';
-        document.getElementById('formPostPanel').style.display = 'block';
+        document.getElementById('formModal').style.display = 'flex';
     }
 
     function openEditForm(data, mediaList) {
@@ -415,11 +442,10 @@ $resultPosts = mysqli_query($koneksi, $queryFetch);
         document.getElementById('postJudul').value = data.judul;
         document.getElementById('postKategori').value = data.kategori;
         document.getElementById('postStatus').value = data.status;
-        document.getElementById('postCreatedAt').value = formatDatetimeForInput(data.created_at); // Load tanggal postingan lama
+        document.getElementById('postCreatedAt').value = formatDatetimeForInput(data.created_at);
         document.getElementById('linkContainer').innerHTML = '';
         $('#editor').trumbowyg('html', data.konten);
 
-        // Render Media Terpasang
         const existContainer = document.getElementById('existingMediaContainer');
         const existList = document.getElementById('existingMediaList');
         existList.innerHTML = '';
@@ -431,7 +457,7 @@ $resultPosts = mysqli_query($koneksi, $queryFetch);
                 item.style.cssText = 'display: flex; justify-content: space-between; align-items: center; background: #f8fafc; padding: 6px 10px; border-radius: 6px; font-size: 0.8rem;';
                 item.innerHTML = `
                     <span>[${m.tipe.toUpperCase()} - ${m.jenis}] ${m.url_atau_file}</span>
-                    <form action="index.php?page=posts" method="POST" style="display:inline;">
+                    <form action="index.php?page=posts&p=<?= $p_page; ?>" method="POST" style="display:inline;">
                         <input type="hidden" name="media_id" value="${m.id}">
                         <button type="submit" name="delete_media_item" style="color: #ef4444; background: none; border: none; cursor: pointer; text-decoration: underline;">Hapus Media Ini</button>
                     </form>
@@ -444,14 +470,15 @@ $resultPosts = mysqli_query($koneksi, $queryFetch);
 
         document.getElementById('btnSubmit').name = 'update_post';
         document.getElementById('btnSubmit').innerText = 'Perbarui Postingan';
-        document.getElementById('formPostPanel').style.display = 'block';
+        document.getElementById('formModal').style.display = 'flex';
     }
 
-    function closeForm() {
-        document.getElementById('formPostPanel').style.display = 'none';
+    function closeForm(event) {
+        if (!event || event.target === document.getElementById('formModal') || event.currentTarget !== document.getElementById('formModal')) {
+            document.getElementById('formModal').style.display = 'none';
+        }
     }
 
-    // Modal Display Handler
     function showMediaPopup(mediaList, title) {
         const modal = document.getElementById('mediaModal');
         const modalTitle = document.getElementById('mediaModalTitle');
@@ -461,16 +488,16 @@ $resultPosts = mysqli_query($koneksi, $queryFetch);
         modalBody.innerHTML = '';
 
         mediaList.forEach(m => {
-            const src = m.tipe === 'file' ? 'uploads/' + m.url_atau_file : m.url_atau_file;
+            const src = m.tipe === 'file' ? '../uploads/' + m.url_atau_file : m.url_atau_file;
             const container = document.createElement('div');
             container.style.cssText = 'width: 100%; text-align: center; margin-bottom: 15px;';
 
             if (m.jenis === 'gambar') {
-                container.innerHTML = `<img src="${src}" alt="Gambar"><br><small>${m.url_atau_file}</small>`;
+                container.innerHTML = `<img src="${src}" style="max-width:100%; max-height: 50vh; border-radius:6px;" alt="Gambar"><br><small>${m.url_atau_file}</small>`;
             } else if (m.jenis === 'video') {
-                container.innerHTML = `<video src="${src}" controls></video><br><small>${m.url_atau_file}</small>`;
+                container.innerHTML = `<video src="${src}" style="max-width:100%; max-height: 50vh;" controls></video><br><small>${m.url_atau_file}</small>`;
             } else if (m.jenis === 'suara') {
-                container.innerHTML = `<audio src="${src}" controls></audio><br><small>${m.url_atau_file}</small>`;
+                container.innerHTML = `<audio src="${src}" style="width:100%;" controls></audio><br><small>${m.url_atau_file}</small>`;
             }
             modalBody.appendChild(container);
         });
@@ -478,9 +505,11 @@ $resultPosts = mysqli_query($koneksi, $queryFetch);
         modal.style.display = 'flex';
     }
 
-    function closeMediaPopup() {
-        const modal = document.getElementById('mediaModal');
-        document.getElementById('mediaModalBody').innerHTML = '';
-        modal.style.display = 'none';
+    function closeMediaPopup(event) {
+        if (!event || event.target === document.getElementById('mediaModal') || event.currentTarget !== document.getElementById('mediaModal')) {
+            const modal = document.getElementById('mediaModal');
+            document.getElementById('mediaModalBody').innerHTML = '';
+            modal.style.display = 'none';
+        }
     }
 </script>

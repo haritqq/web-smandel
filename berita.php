@@ -12,7 +12,7 @@
                      FROM posts 
                      JOIN users ON posts.user_id = users.id 
                      WHERE posts.status = 'Diterbitkan' 
-                     ORDER BY posts.id DESC";
+                     ORDER BY posts.created_at DESC";
     $result_berita = mysqli_query($koneksi, $query_berita);
 
     // Dynamic Kategori untuk Filter Tab
@@ -26,7 +26,7 @@
             $query_media = "SELECT url_atau_file, tipe FROM post_media WHERE post_id = $postId AND jenis = 'gambar' LIMIT 1";
             $res_media = mysqli_query($koneksi, $query_media);
             
-            $gambar_url = 'assets/img/hero1.jpg'; // Gambar default
+            $gambar_url = 'assets/img/noimage-v2.jpg'; // Gambar default
             if ($res_media && mysqli_num_rows($res_media) > 0) {
                 $m = mysqli_fetch_assoc($res_media);
                 $gambar_url = ($m['tipe'] === 'file') ? 'admin/uploads/' . $m['url_atau_file'] : $m['url_atau_file'];
