@@ -154,7 +154,7 @@ $page_title = "Beranda";
             </div>
 
             <div class="quick-grid">
-                <a href="#ppdb" target="_blank" class="quick-card">
+                <a href="https://daftarulang.sma8bna.sch.id/" target="_blank" class="quick-card">
                     <div class="quick-icon"><i data-lucide="user-plus"></i></div>
                     <h4>PPDB / SPMB</h4>
                     <span class="quick-badge">Pendaftaran</span>
