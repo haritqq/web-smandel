@@ -12,11 +12,12 @@ $pages = [
     'dashboard'     => 'views/dashboard.php',
     'siswa'         => 'views/siswa.php',
     'posts'         => 'views/posts.php', // Menu Postingan
-    'guru'          => 'views/guru.php',
+    'data_gtk'     => 'views/data_gtk.php',
     'komentar'      => 'views/komentar.php',
     'cetak_absen'   => 'views/cetak_absen.php', // Contoh menu baru kedepannya
     'profil'        => 'views/profil.php',        // Tambah Halaman Detail Akun
-    'ubah_password' => 'views/ubah_password.php' // Tambah Halaman Ubah Password
+    'ubah_password' => 'views/ubah_password.php', // Tambah Halaman Ubah Password
+    'kelola-kts'    => 'views/kelola-kts.php'
     // 'pengaturan'  => 'views/pengaturan.php'
 ];
 

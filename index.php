@@ -189,7 +189,7 @@ $page_title = "Beranda";
                     <h4>Pengumuman</h4>
                     <span class="quick-badge">Informasi</span>
                 </a>
-                <a href="#download" target="_blank" class="quick-card">
+                <a href="kts.php" target="_blank" class="quick-card">
                     <div class="quick-icon"><i data-lucide="id-card"></i></div>
                     <h4>Kartu Pelajar Digital</h4>
                     <span class="quick-badge">Tanda Pengenal</span>

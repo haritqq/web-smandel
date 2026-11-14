@@ -1,6 +1,9 @@
 <?php
 session_start();
 
+// 1. Hubungkan ke database
+require_once __DIR__ . '/config/koneksi.php';
+
 // Jika admin sudah login, langsung arahkan ke index.php
 if (isset($_SESSION['admin_logged_in']) && $_SESSION['admin_logged_in'] === true) {
     header("Location: index.php");
@@ -13,16 +16,43 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = trim($_POST['username'] ?? '');
     $password = trim($_POST['password'] ?? '');
 
-    // Kredensial contoh
-    if ($username === 'admin' && $password === 'admin123') {
-        session_regenerate_id(true);
-        $_SESSION['admin_logged_in'] = true;
-        $_SESSION['admin_username']  = $username;
+    if (!empty($username) && !empty($password)) {
+        // Safe Query untuk mencegah SQL Injection
+        $username_clean = mysqli_real_escape_string($koneksi, $username);
+        $queryUser = mysqli_query($koneksi, "SELECT * FROM users WHERE username = '$username_clean' LIMIT 1");
 
-        header("Location: index.php");
-        exit;
+        if ($queryUser && mysqli_num_rows($queryUser) > 0) {
+            $user = mysqli_fetch_assoc($queryUser);
+            $db_password = $user['password'];
+
+            // Verifikasi Password (Mendukung password_hash, MD5, SHA1, atau plain text)
+            $is_password_valid = false;
+            if (password_verify($password, $db_password)) {
+                $is_password_valid = true;
+            } elseif (md5($password) === $db_password || sha1($password) === $db_password || $password === $db_password) {
+                $is_password_valid = true;
+            }
+
+            if ($is_password_valid) {
+                session_regenerate_id(true);
+
+                // SIMPAN SEMUA DATA USER KE SESSION
+                $_SESSION['admin_logged_in'] = true;
+                $_SESSION['admin_id']        = $user['id'];
+                $_SESSION['admin_username']  = $user['username'];
+                $_SESSION['admin_nama']      = $user['nama_lengkap'] ?? $user['username'];
+                $_SESSION['admin_role']      = $user['role'] ?? 'Administrator';
+
+                header("Location: index.php");
+                exit;
+            } else {
+                $error_message = "Password yang Anda masukkan salah!";
+            }
+        } else {
+            $error_message = "Username tidak ditemukan di database!";
+        }
     } else {
-        $error_message = "Username atau password salah!";
+        $error_message = "Harap isi username dan password!";
     }
 }
 ?>

@@ -1,27 +1,33 @@
 <?php
 require_once __DIR__ . '/../config/koneksi.php';
 
-$admin_id = $_SESSION['admin_id'] ?? 1; // Mengambil ID dari session login
-$success_msg = '';
-$error_msg   = '';
+// 1. Ambil ID dari berbagai kemungkinan nama session login
+$admin_id = $_SESSION['admin_id'] 
+         ?? $_SESSION['user_id'] 
+         ?? $_SESSION['id'] 
+         ?? $_SESSION['user']['id'] 
+         ?? null;
 
-// Proses Simpan/Update Profil
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_profile'])) {
-    $nama_lengkap = mysqli_real_escape_string($koneksi, trim($_POST['nama_lengkap'] ?? ''));
-    $email        = mysqli_real_escape_string($koneksi, trim($_POST['email'] ?? ''));
-
-    if (!empty($nama_lengkap)) {
-        $queryUpdate = "UPDATE users SET nama_lengkap = '$nama_lengkap', email = '$email' WHERE id = $admin_id";
-        if (mysqli_query($koneksi, $queryUpdate)) {
-            $_SESSION['admin_nama'] = $nama_lengkap; // Update session nama
-            $success_msg = "Detail akun berhasil diperbarui!";
-        } else {
-            $error_msg = "Gagal memperbarui profil: " . mysqli_error($koneksi);
-        }
-    } else {
-        $error_msg = "Nama lengkap tidak boleh kosong!";
+// 2. Jika session ID masih kosong, ambil ID berdasarkan username yang sedang tertera di session
+if (!$admin_id && !empty($_SESSION['admin_username'])) {
+    $uname = mysqli_real_escape_string($koneksi, $_SESSION['admin_username']);
+    $qUser = mysqli_query($koneksi, "SELECT id FROM users WHERE username = '$uname' LIMIT 1");
+    if ($rUser = mysqli_fetch_assoc($qUser)) {
+        $admin_id = $rUser['id'];
+        $_SESSION['admin_id'] = $admin_id; // Simpan ke session agar selanjutnya otomatis terdeteksi
     }
 }
+
+// 3. Jika tetap tidak ditemukan, baru tampilkan pesan peringatan
+if (!$admin_id) {
+    echo '<div style="background: #fef2f2; border: 1px solid #fecaca; color: #991b1b; padding: 16px; border-radius: 8px; margin: 20px;">
+            <strong>Akses Ditolak:</strong> Session login ID tidak ditemukan. Silakan lakukan <a href="logout.php" style="color: #dc2626; text-decoration: underline;">Login Ulang</a>.
+          </div>';
+    exit;
+}
+
+$success_msg = '';
+$error_msg   = '';
 
 // Ambil Data Admin Saat Ini
 $queryUser = mysqli_query($koneksi, "SELECT * FROM users WHERE id = $admin_id");

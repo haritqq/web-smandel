@@ -1,19 +1,16 @@
 <?php
 require_once __DIR__ . '/../config/koneksi.php';
 
-$admin_id = $_SESSION['admin_id'] ?? 1;
+// Ambil ID user dari session
+$admin_id = $_SESSION['admin_id'] ?? $_SESSION['user_id'] ?? 0;
+
 $success_msg = '';
 $error_msg   = '';
 
-// Proses Ubah Password
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_password'])) {
-    $password_lama    = $_POST['password_lama'] ?? '';
-    $password_baru    = $_POST['password_baru'] ?? '';
-    $konfirmasi_pass  = $_POST['konfirmasi_password'] ?? '';
-
-    // Ambil password tersimpan di database
-    $queryUser = mysqli_query($koneksi, "SELECT password FROM users WHERE id = $admin_id");
-    $user = mysqli_fetch_assoc($queryUser);
+    $password_lama   = $_POST['password_lama'] ?? '';
+    $password_baru   = $_POST['password_baru'] ?? '';
+    $konfirmasi_pass = $_POST['konfirmasi_password'] ?? '';
 
     if (empty($password_lama) || empty($password_baru) || empty($konfirmasi_pass)) {
         $error_msg = "Semua kolom form wajib diisi!";
@@ -22,26 +19,36 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_password'])) {
     } elseif (strlen($password_baru) < 6) {
         $error_msg = "Password baru minimal harus 6 karakter!";
     } else {
-        // Cek verifikasi password lama (Mendukung password_verify atau plain text MD5)
-        $is_valid_old = false;
-        if (password_verify($password_lama, $user['password'])) {
-            $is_valid_old = true;
-        } elseif (md5($password_lama) === $user['password'] || $password_lama === $user['password']) {
-            $is_valid_old = true;
-        }
+        // Ambil password tersimpan di database
+        $queryUser = mysqli_query($koneksi, "SELECT password FROM users WHERE id = $admin_id LIMIT 1");
+        $user = mysqli_fetch_assoc($queryUser);
 
-        if ($is_valid_old) {
-            // Hash password baru dengan BCRYPT
-            $new_hash = password_hash($password_baru, PASSWORD_BCRYPT);
-            $queryUpdate = "UPDATE users SET password = '$new_hash' WHERE id = $admin_id";
-
-            if (mysqli_query($koneksi, $queryUpdate)) {
-                $success_msg = "Password berhasil diperbarui!";
-            } else {
-                $error_msg = "Gagal mengubah password: " . mysqli_error($koneksi);
-            }
+        if (!$user) {
+            $error_msg = "Data akun tidak ditemukan di database!";
         } else {
-            $error_msg = "Password lama yang Anda masukkan salah!";
+            $db_password = $user['password'];
+            $is_valid_old = false;
+
+            // Verifikasi Password Lama
+            if (password_verify($password_lama, $db_password)) {
+                $is_valid_old = true;
+            } elseif (md5($password_lama) === $db_password || $password_lama === $db_password) {
+                $is_valid_old = true;
+            }
+
+            if ($is_valid_old) {
+                // Enkripsi password baru
+                $new_hash = password_hash($password_baru, PASSWORD_DEFAULT);
+                $queryUpdate = "UPDATE users SET password = '$new_hash' WHERE id = $admin_id";
+
+                if (mysqli_query($koneksi, $queryUpdate)) {
+                    $success_msg = "Password berhasil diperbarui! Silakan gunakan password baru pada login berikutnya.";
+                } else {
+                    $error_msg = "Gagal memperbarui password: " . mysqli_error($koneksi);
+                }
+            } else {
+                $error_msg = "Password lama yang Anda masukkan salah!";
+            }
         }
     }
 }
